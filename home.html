@@ -8,6 +8,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <script>
 tailwind.config = {
 theme: {
@@ -95,8 +96,6 @@ position: relative;
 overflow: hidden;
 transition: all 0.3s ease;
 border: 2px solid #00F5FF;
-transform-style: preserve-3d;
-perspective: 1000px;
 }
 .cyber-button::before {
 content: '';
@@ -111,7 +110,6 @@ animation: scanline 2s linear infinite;
 .cyber-button:hover {
 background: rgba(0, 245, 255, 0.1);
 box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
-transform: rotateX(-30deg) scale(1.05);
 }
 .glitch-text {
 position: relative;
@@ -141,8 +139,10 @@ radial-gradient(circle at 50% 50%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
 linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
 linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
 background-size: 100% 100%, 20px 20px, 20px 20px;
+background-attachment: fixed;
 position: relative;
-overflow: hidden;
+overflow-x: hidden;
+overflow-y: auto;
 }
 body::before {
 content: '';
@@ -161,6 +161,291 @@ font-family: 'Orbitron', sans-serif;
 .tech-text {
 font-family: 'Fira Code', monospace;
 }
+.youshebiao-font {
+font-family: 'Noto Sans SC', sans-serif;
+font-weight: 900;
+}
+
+/* 霓虹大标题效果 - CYBER PUNK 风格 */
+.neon-title-container {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 1rem;
+font-family: 'Orbitron', sans-serif;
+font-size: 3.5rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 3px;
+}
+
+.neon {
+text-shadow: 0 0 3vw #00F5FF;
+animation: neon 2s ease-in-out infinite;
+}
+
+.flux {
+text-shadow: 0 0 3vw #9400D3;
+animation: flux 2s linear infinite;
+}
+
+@keyframes neon {
+0%, 100% {
+    text-shadow: 0 0 1vw #00F5FF, 0 0 3vw #00F5FF, 0 0 10vw #00F5FF, 0 0 10vw #00F5FF, 0 0 .4vw #87CEEB, .5vw .5vw .1vw #4682B4;
+    color: #00FFFF;
+}
+50% {
+    text-shadow: 0 0 .5vw #003366, 0 0 1.5vw #003366, 0 0 5vw #003366, 0 0 5vw #003366, 0 0 .2vw #003366, .5vw .5vw .1vw #1E3A8A;
+    color: #4682B4;
+}
+}
+
+@keyframes flux {
+0%, 100% {
+    text-shadow: 0 0 1vw #9400D3, 0 0 3vw #9400D3, 0 0 10vw #9400D3, 0 0 10vw #9400D3, 0 0 .4vw #DA70D6, .5vw .5vw .1vw #663399;
+    color: #FF00FF;
+}
+50% {
+    text-shadow: 0 0 .5vw #4B0082, 0 0 1.5vw #4B0082, 0 0 5vw #4B0082, 0 0 5vw #4B0082, 0 0 .2vw #4B0082, .5vw .5vw .1vw #2E0052;
+    color: #663399;
+}
+}
+
+/* Cyberpunk 2077 风格不规则文本框 */
+:root {
+--yellow-color: #00F5FF;
+--border-color: #9400D3;
+}
+
+.cyberpunk {
+padding: 20px 15px 15px;
+position: relative;
+font-size: 1.1rem;
+color: var(--yellow-color);
+border: none;
+background: linear-gradient(#000, #000) padding-box,
+           linear-gradient(45deg, var(--yellow-color), #87CEEB, #4169E1, var(--yellow-color)) border-box;
+border: 16px solid transparent;
+border-right-width: 5px;
+border-left-width: 5px;
+border-bottom-width: 12px;
+clip-path: polygon(
+    0px 25px,
+    26px 0px,
+    calc(60% - 25px) 0px,
+    60% 25px, 
+    100% 25px, 
+    100% calc(100% - 10px),
+    calc(100% - 15px) calc(100% - 10px),
+    calc(80% - 10px) calc(100% - 10px),
+    calc(80% - 15px) 100%,
+    80px calc(100% - 0px),
+    65px calc(100% - 15px),
+    0% calc(100% - 15px)
+);
+box-shadow: 
+    inset 0 0 15px rgba(0, 245, 255, 0.2),
+    0 0 15px rgba(0, 245, 255, 0.3);
+animation: borderPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes borderPulse {
+0% {
+    box-shadow: 
+        inset 0 0 15px rgba(0, 245, 255, 0.2),
+        0 0 15px rgba(0, 245, 255, 0.3);
+}
+100% {
+    box-shadow: 
+        inset 0 0 25px rgba(0, 245, 255, 0.4),
+        0 0 25px rgba(0, 245, 255, 0.5);
+}
+}
+
+.cyberpunk.inverse {
+border: none;
+padding: 40px 15px 30px;
+color: #000;
+background-color: var(--yellow-color);
+border-right: 2px solid var(--border-color);
+}
+
+.dotted, .dotted:before, .dotted:after {
+background: var(--yellow-color);
+background-image: radial-gradient(#00000021 1px, transparent 0);
+background-size: 5px 5px;
+background-position: -13px -3px;
+}
+
+/* 文本框右侧小编号样式 */
+.cyberpunk:before {
+content: "AI-2025";
+display: block;
+position: absolute;
+bottom: -12px;
+right: 25px;
+padding: 2px 2px 0px 2px;
+font-size: 0.6rem;
+line-height: 0.6rem;
+color: #000;
+background-color: var(--yellow-color);
+border-left: 2px solid var(--border-color);
+}
+
+.cyberpunk.inverse:before {
+content: "SYS-71";
+right: 90px;
+bottom: 9px;
+}
+
+.cyberpunk.inverse:before, .cyberpunk:before {
+background-color: #000;
+color: var(--yellow-color);
+}
+
+/* 减少动效以提升性能 */
+@media (prefers-reduced-motion: reduce) {
+.neon, .flux {
+    animation: none !important;
+}
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+/* 手机端纵向布局 */
+.max-w-\[1440px\] {
+    padding: 0 1rem;
+    height: auto;
+    min-height: 100vh;
+    padding-top: 0;
+    padding-bottom: 2rem;
+}
+
+.max-w-\[1440px\] .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 10rem;
+    padding-bottom: 2rem;
+}
+
+/* 大标题样式调整 */
+.neon-title-container {
+    font-size: 2rem;
+    padding: 0 1rem;
+    letter-spacing: 1px;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    top: auto;
+    margin-bottom: 0;
+}
+
+/* 头像区域调整 */
+.col-span-4 {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    order: 1;
+}
+
+.col-span-4 .w-80 {
+    width: 220px;
+    height: 220px;
+}
+
+.col-span-4 h1 {
+    font-size: 2rem;
+    margin-top: 1rem;
+}
+
+.col-span-4 .tech-text {
+    font-size: 1.1rem;
+}
+
+/* 内容区域调整 */
+.col-span-8 {
+    width: 100%;
+    order: 2;
+}
+
+.cyberpunk {
+    padding: 15px 10px 12px;
+    border-width: 15px 3px 12px;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.cyberpunk::before {
+    bottom: -8px;
+    right: 20px;
+}
+
+/* 项目网格调整为纵向 */
+.grid-cols-3 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+/* AI数字分身区域调整 */
+.flex.justify-between {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+}
+
+.chat-button {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+}
+
+@media (max-width: 480px) {
+/* 超小屏幕调整 */
+.max-w-\[1440px\] .grid {
+    padding-top: 8rem;
+    gap: 1.5rem;
+}
+
+.neon-title-container {
+    font-size: 1.6rem;
+    padding: 0 0.5rem;
+    letter-spacing: 1px;
+}
+
+.col-span-4 .w-80 {
+    width: 180px;
+    height: 180px;
+}
+
+.col-span-4 h1 {
+    font-size: 1.8rem;
+    margin-top: 0.8rem;
+}
+
+.cyberpunk {
+    padding: 12px 8px 10px;
+    border-width: 12px 2px 10px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.cyberpunk::before {
+    bottom: -6px;
+    right: 15px;
+    font-size: 0.5rem;
+}
+
+.grid-cols-3 a {
+    padding: 1rem;
+}
+
+.chat-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+}
+}
 .fade-in {
     opacity: 1;
 }
@@ -169,20 +454,31 @@ width: 300px;
 background: linear-gradient(45deg, rgba(255,0,51,0.2), rgba(255,0,51,0.4));
 position: relative;
 overflow: hidden;
-animation: futuristic-flicker 2s linear infinite;
-transform-style: preserve-3d;
-transition: transform 0.5s ease;
+border: 2px solid #FF0033;
+transition: all 0.3s ease;
+}
+.chat-button::before {
+content: '';
+position: absolute;
+top: -2px;
+left: -2px;
+right: -2px;
+bottom: -2px;
+background: linear-gradient(45deg, #FF0033, #00F5FF, #9400D3, #00FF41, #FF0033);
+background-size: 400% 400%;
+border-radius: inherit;
+z-index: -1;
+animation: gradient-flow 3s ease infinite;
 }
 .chat-button::after {
 content: '';
 position: absolute;
-top: -50%;
-left: -50%;
-width: 200%;
-height: 200%;
-background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-transform: rotate(45deg);
-animation: shimmer 3s infinite;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+animation: flow-light 2s linear infinite;
 }
 .digital-twin-tag {
 position: absolute;
@@ -195,12 +491,23 @@ font-size: 12px;
 color: #00F5FF;
 border: 1px solid #00F5FF;
 }
-@keyframes shimmer {
+@keyframes gradient-flow {
 0% {
-transform: translate(-50%, -50%) rotate(45deg);
+background-position: 0% 50%;
+}
+50% {
+background-position: 100% 50%;
 }
 100% {
-transform: translate(150%, 150%) rotate(45deg);
+background-position: 0% 50%;
+}
+}
+@keyframes flow-light {
+0% {
+left: -100%;
+}
+100% {
+left: 100%;
 }
 }
 @media (max-width: 768px) {
@@ -245,27 +552,9 @@ transform: translate(150%, 150%) rotate(45deg);
     50% { border-color: #00F5FF }
 }
 
-/* 新增：为按钮添加科技感动画 */
-@keyframes futuristic-flicker {
-    0%, 18%, 22%, 25%, 53%, 57%, 100% {
-        box-shadow:
-            0 0 5px rgba(0, 245, 255, 0.2),
-            inset 0 0 5px rgba(0, 245, 255, 0.1);
-    }
-    20%, 24%, 55% {
-        text-shadow: none;
-        box-shadow: none;
-    }
-}
-
-.chat-button {
-    animation: futuristic-flicker 2s linear infinite;
-    transform-style: preserve-3d;
-    transition: transform 0.5s ease;
-}
-
 .chat-button:hover {
-    transform: rotateX(-30deg) scale(1.05); /* 减小翻转角度 */
+    background: linear-gradient(45deg, rgba(255,0,51,0.4), rgba(255,0,51,0.6));
+    box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
 }
 </style>
 <script>
@@ -284,18 +573,35 @@ window.difyChatbotConfig = {
 </script>
 <script src="https://udify.app/embed.js"></script>
 </head>
-<body class="min-h-[1024px] text-white overflow-hidden" id="mainBody">
+<body class="min-h-screen text-white" id="mainBody">
 <div class="neural-node" style="top:10%; left:20%;"></div>
 <div class="neural-node" style="top:30%; left:80%;"></div>
 <div class="neural-node" style="top:70%; left:15%;"></div>
 <div class="neural-node" style="top:85%; left:75%;"></div>
 <div class="neural-node" style="top:50%; left:50%;"></div>
-<div class="max-w-[1440px] h-screen mx-auto px-8 flex items-center">
+
+<!-- 顶部霓虹标题 -->
+<div class="absolute top-8 left-0 right-0 z-10 md:block">
+    <div class="neon-title-container">
+        <div class="neon">MY</div>
+        <div class="flux">DIGITAL HOMESTEAD</div>
+    </div>
+</div>
+
+<!-- 手机端顶部标题 -->
+<div class="block md:hidden fixed top-0 left-0 right-0 z-10 bg-black/80 backdrop-blur-md">
+    <div class="neon-title-container py-4">
+        <div class="neon">MY</div>
+        <div class="flux">DIGITAL HOMESTEAD</div>
+    </div>
+</div>
+
+<div class="max-w-[1440px] min-h-screen mx-auto px-8 flex items-center pt-32 md:min-h-screen">
 <div class="w-full grid grid-cols-12 gap-8">
 <!-- Left Section -->
 <div class="col-span-4 flex flex-col items-center space-y-6">
 <div class="relative">
-<div class="w-64 h-64 rounded-lg overflow-hidden neon-border pulse-avatar">
+<div class="w-80 h-80 rounded-lg overflow-hidden neon-border pulse-avatar">
 <img src="avatar1.PNG"
 alt="头像"
 class="w-full h-full object-cover">
@@ -318,26 +624,22 @@ AI.ID: FYT-2025
 </div>
 <!-- Center Section -->
 <div class="col-span-8 space-y-8">
-<div class="bg-black/50 p-6 rounded-lg border border-primary">
+<div class="cyberpunk relative z-10">
 <p class="text-lg leading-relaxed">
-<span class="text-primary">[系统初始化...载入档案...]</span><br>
-<div style="font-family: 'Arial', sans-serif; color: white; line-height: 1.6; background-color: #0a192f; padding: 20px; border-radius: 8px;">
-    <p style="position: relative; padding-left: 30px; margin-bottom: 15px;">
-        <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span>
+  <div style="font-family: 'Arial', sans-serif; color: white; line-height: 1.6; padding: 0px;">
+    <p style="position: relative; padding-left: 10px; margin-bottom: 15px;">
+        <!-- <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span> -->
         <strong style="color: #00F5FF;">资深AI产品</strong>：4年AI产品设计，主导设计业内首批LLM应用开发平台，斩获行业首个百万大模型订单
     </p>
-    <p style="position: relative; padding-left: 30px; margin-bottom: 15px;">
-        <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span>
-        <strong style="color: #00F5FF;">AI云服务商业化</strong>：负责AI模型管理与商品化运营；累计为250+教育/打印机/互联网等行业客户提供AI云服务，单API日调用量10万+
+    <p style="position: relative; padding-left: 10px; margin-bottom: 15px;">
+        <!-- <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span> -->
+        <strong style="color: #00F5FF;">AI云服务商业化</strong>：累计为250+教育/打印机/互联网等行业客户提供AI云服务，单API日调用量10万+
     </p>
-    <p style="position: relative; padding-left: 30px; margin-bottom: 15px;">
-        <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span>
+    <p style="position: relative; padding-left: 10px; margin-bottom: 15px;">
+        <!-- <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span> -->
         <strong style="color: #00F5FF;">复杂系统架构</strong>：擅长构建企业级低代码后台，缩短AI应用开发周期
     </p>
-    <p style="position: relative; padding-left: 30px;">
-        <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span>
-        <strong style="color: #00F5FF;">企业AI解决方案</strong>：为金融/酒店/管道运输/科研/教育行业客户设计AI解决方案
-    </p>
+    
 </div>
 </p>
 </div>
@@ -357,16 +659,42 @@ AI.ID: FYT-2025
 </div>
 <div class="bg-black/50 p-6 rounded-lg mt-4 flex justify-between items-center border border-[#FF0033]/30">
 <div>
-<h3 class="text-xl font-bold mb-2 text-[#FF0033]">数字分身</h3>
-<p class="text-gray-400">实时对话  |  24*7在线  |  模拟面试</p>
+<h3 class="text-xl font-bold mb-2 text-[#FF0033] youshebiao-font">AI数字分身</h3>
+<p class="text-gray-400">多轮对话  |   模拟面试 | 24*7在线  </p>
 </div>
-<button onclick="openChat()" class="cyber-button chat-button px-8 py-4 rounded-lg text-[#FF0033] tech-text relative whitespace-nowrap">
+<button onclick="openChat()" class="cyber-button chat-button px-8 py-4 rounded-lg text-[#FF0033] tech-text relative whitespace-nowrap text-lg">
 <i class="fas fa-comments mr-2"></i>
 和她聊聊
 </button>
 </div>
 </div>
 </div>
+</div>
+
+<!-- 底部区域 - 确保页面有足够内容支持滚动 -->
+<div class="w-full py-16 mt-16 border-t border-primary/20">
+    <div class="max-w-[1440px] mx-auto px-8 text-center">
+        <div class="cyberpunk">
+            <h3 class="text-xl font-bold mb-4 text-primary">联系方式</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div class="flex items-center justify-center space-x-2">
+                    <i class="fas fa-envelope text-primary"></i>
+                    <span>邮箱咨询</span>
+                </div>
+                <div class="flex items-center justify-center space-x-2">
+                    <i class="fas fa-phone text-primary"></i>
+                    <span>电话沟通</span>
+                </div>
+                <div class="flex items-center justify-center space-x-2">
+                    <i class="fas fa-wechat text-primary"></i>
+                    <span>微信交流</span>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-gray-400 text-sm">
+            <p>© 2025 AI数字简历 | 技术驱动创新</p>
+        </div>
+    </div>
 </div>
 
 <!-- 修改聊天对话框 -->

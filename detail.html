@@ -639,8 +639,51 @@ body {
     </div>
 
     <div id="portfolio" class="content-section">
-      <h2 class="text-2xl font-bold mb-6 text-primary">作品集</h2>
-      <!-- 作品集内容将在这里添加 -->
+      <h2 class="text-3xl font-bold mb-8 text-center text-primary">作品集</h2>
+      
+      <!-- 作品展示区域 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 作品1：四郎教你学数学 -->
+          <div class="bg-black/50 rounded-lg border border-primary/30 overflow-hidden hover:border-primary transition-all duration-300 cyber-button group cursor-pointer flex flex-col" onclick="openPortfolioLink('https://www.coze.cn/s/JA9euTYtYLU/')">
+              <div class="relative overflow-hidden">
+                  <img src="silang.jpeg" alt="四郎教你学数学" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <div class="p-6 flex-1 flex flex-col">
+                  <h3 class="text-xl font-bold mb-3 text-primary group-hover:text-[#00FF41] transition-colors">四郎教你学数学</h3>
+                  <p class="text-gray-300 leading-relaxed text-base mb-4 flex-1">资深数学老师"四郎"，耐心分步讲解数学知识，提问互动检验理解，引导学习，让复杂内容轻松易懂。</p>
+                  <div class="flex flex-wrap gap-2">
+                      <span class="px-3 py-1 text-white text-sm rounded-full border border-pink-400/50" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.4), rgba(255, 255, 255, 0.2));">Coze</span>
+                      <span class="px-3 py-1 text-white text-sm rounded-full border border-primary/50" style="background: linear-gradient(135deg, rgba(0, 245, 255, 0.3), rgba(255, 255, 255, 0.2));">知识点讲解</span>
+                      <span class="px-3 py-1 text-white text-sm rounded-full border border-purple-300/50" style="background: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(255, 255, 255, 0.2));">计算器</span>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- 作品2：水果消消乐 -->
+          <div class="bg-black/50 rounded-lg border border-primary/30 overflow-hidden hover:border-primary transition-all duration-300 cyber-button group cursor-pointer flex flex-col" onclick="openPortfolioVideo('game.mp4')">
+              <div class="relative overflow-hidden">
+                  <img src="game.PNG" alt="水果消消乐" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <div class="p-6 flex-1 flex flex-col">
+                  <h3 class="text-xl font-bold mb-3 text-primary group-hover:text-[#00FF41] transition-colors">水果消消乐</h3>
+                  <p class="text-gray-300 leading-relaxed text-base mb-4 flex-1">带你重回2010</p>
+                                      <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-white text-sm rounded-full border border-primary/50" style="background: linear-gradient(135deg, rgba(0, 245, 255, 0.3), rgba(255, 255, 255, 0.2)); font-family: system-ui, -apple-system, sans-serif;">Cursor</span>
+                        <span class="px-3 py-1 text-white text-sm rounded-full border border-pink-400/50" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.4), rgba(255, 255, 255, 0.2));">微信小程序</span>
+                        <span class="px-3 py-1 text-white text-sm rounded-full border border-purple-300/50" style="background: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(255, 255, 255, 0.2));">即梦</span>
+                    </div>
+              </div>
+          </div>
+          
+          <div class="bg-black/30 rounded-lg border border-gray-600/30 overflow-hidden flex items-center justify-center h-96 group">
+              <div class="text-center text-gray-500">
+                  <i class="fas fa-plus text-3xl mb-4 group-hover:text-primary/50 transition-colors"></i>
+                  <p class="text-sm">更多作品敬请期待</p>
+              </div>
+          </div>
+      </div>
     </div>
   </div>
 </div>
@@ -691,6 +734,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // 添加active类到当前项
             this.classList.add('active');
             document.getElementById(section).classList.add('active');
+            
+            // 滚动到顶部
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) {
+                mainContent.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 
@@ -731,6 +783,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
 });
+
+// 作品集链接跳转函数
+function openPortfolioLink(url) {
+    window.open(url, '_blank');
+}
+
+// 作品集视频播放函数
+function openPortfolioVideo(videoPath) {
+    const videoWindow = window.open('', '_blank');
+    videoWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>水果消消乐</title>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 20px;
+                    background: #0A0A0A;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-height: 100vh;
+                    font-family: 'Rajdhani', sans-serif;
+                }
+                video {
+                    max-width: 90%;
+                    max-height: 90vh;
+                    border-radius: 8px;
+                    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+                }
+                h1 {
+                    color: #00F5FF;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <div>
+                <h1>水果消消乐</h1>
+                <video controls autoplay>
+                    <source src="${videoPath}" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+            </div>
+        </body>
+        </html>
+    `);
+}
 </script>
 </body>
 </html> 
