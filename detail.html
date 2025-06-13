@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 简历 - 详细信息</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#00F5FF',
+        secondary: '#9400D3'
+      }
+    }
+  }
+}
+</script>
+<style>
+/* 复用home.html的样式 */
+@keyframes glitch {
+  0% { clip-path: inset(40% 0 61% 0); transform: skew(0.15deg); }
+  20% { clip-path: inset(75% 0 28% 0); transform: skew(0.8deg); }
+  40% { clip-path: inset(28% 0 71% 0); transform: skew(0.4deg); }
+  60% { clip-path: inset(13% 0 82% 0); transform: skew(0.25deg); }
+  80% { clip-path: inset(52% 0 43% 0); transform: skew(0.5deg); }
+  100% { clip-path: inset(67% 0 32% 0); transform: skew(0.2deg); }
+}
+
+.cyber-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid #00F5FF;
+}
+
+.cyber-button:hover {
+  background: rgba(0, 245, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+}
+
+body {
+  background: #0A0A0A;
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+    linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px, 20px 20px;
+}
+
+.nav-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-item.active {
+  color: #00F5FF;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 20px;
+  background: #00F5FF;
+  box-shadow: 0 0 10px #00F5FF;
+}
+
+.content-section {
+  display: none;
+}
+
+.content-section.active {
+  display: block;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 修改动画和样式 */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 245, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0); }
+}
+
+.timeline-card {
+    position: relative;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 245, 255, 0.2);
+    margin-left: 2rem;
+    border-radius: 8px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 0, 85% 0, 100% 15%, 0 0, 15% 0, 0 15%);
+}
+
+.timeline-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 85%, rgba(75, 0, 130, 0.8) 100%);
+    box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+}
+
+.timeline-dot {
+    position: absolute;
+    top: 0;
+    left: -2rem;
+    width: 12px;
+    height: 12px;
+    background: #00F5FF;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00F5FF;
+    animation: pulse 2s infinite;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 0;
+    left: -1.5rem;
+    width: 2px;
+    height: 100%;
+    background: rgba(0, 245, 255, 0.3);
+}
+
+.timeline-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.timeline-header-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.timeline-header-item i {
+    color: rgba(0, 245, 255, 0.6);
+    transition: color 0.3s ease;
+}
+
+.timeline-card:hover .timeline-header-item i {
+    color: #00F5FF;
+}
+
+.timeline-content {
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.3s ease;
+}
+
+.timeline-card:hover .timeline-content {
+    color: #ffffff;
+}
+
+.timeline-date {
+    color: rgba(0, 245, 255, 0.6);
+    transition: color 0.3s ease;
+}
+
+.timeline-card:hover .timeline-date {
+    color: #00F5FF;
+}
+
+.timeline-title {
+    color: rgba(0, 255, 65, 0.8);
+    transition: color 0.3s ease;
+}
+
+.timeline-card:hover .timeline-title {
+    color: #00FF41;
+}
+
+.work-content {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.work-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.work-content li {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .timeline-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .timeline-card {
+        margin-left: 1.5rem;
+    }
+    
+    .timeline-dot {
+        left: -1.5rem;
+    }
+    
+    .timeline-line {
+        left: -1rem;
+    }
+}
+
+/* 添加新的样式 */
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #00F5FF;
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 修改项目导航样式 */
+.project-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.project-nav-container {
+    max-width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0 1rem;
+}
+
+.project-nav-container::-webkit-scrollbar {
+    display: none;
+}
+
+.project-nav-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 1.5rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: #00F5FF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border: 1px solid rgba(0, 245, 255, 0.2);
+}
+
+.project-nav-item:hover {
+    transform: scale(1.05);
+    background: rgba(0, 245, 255, 0.1);
+    z-index: 10;
+    position: relative;
+}
+
+.project-nav-item.active {
+    background: rgba(0, 245, 255, 0.2);
+    border-color: #00F5FF;
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+/* 修改内容区域宽度 */
+.timeline-container {
+    max-width: 60%;
+    margin: 0 auto;
+    padding-top: 0.5rem;
+}
+
+/* 修改聊天窗口样式 */
+.chat-dialog {
+    position: fixed;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 800px;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid #00F5FF;
+    border-radius: 1rem;
+    z-index: 50;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.2);
+}
+</style>
+</head>
+<body class="min-h-screen text-white">
+<div class="flex h-screen">
+  <!-- 左侧导航栏 -->
+  <div class="w-64 bg-black/50 p-6 border-r border-primary/30">
+    <div class="space-y-6">
+      <a href="javascript:void(0)" onclick="window.location.href='home.html'" class="nav-item block text-base hover:text-primary transition-colors">
+        <i class="fas fa-home mr-2"></i>首页
+      </a>
+      <a href="#experience" class="nav-item block text-base hover:text-primary transition-colors" data-section="experience">
+        <i class="fas fa-microchip mr-2"></i>工作经历
+      </a>
+      <a href="#projects" class="nav-item block text-base hover:text-primary transition-colors" data-section="projects">
+        <i class="fas fa-project-diagram mr-2"></i>项目案例
+      </a>
+      <a href="#portfolio" class="nav-item block text-base hover:text-primary transition-colors" data-section="portfolio">
+        <i class="fas fa-brain mr-2"></i>作品集
+      </a>
+    </div>
+  </div>
+
+  <!-- 右侧内容区域 -->
+  <div id="main-content" class="flex-1 p-8 overflow-y-auto">
+    <div id="experience" class="content-section">
+      <h2 class="section-title">工作经历</h2>
+      
+      <!-- 时间轴容器 -->
+      <div class="relative py-12">
+          
+          <!-- 时间轴内容 -->
+          <div class="relative space-y-12">
+              <!-- 天壤智能 -->
+              <div class="timeline-card p-6 relative">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-header">
+                      <div class="timeline-header-item">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span class="timeline-date">2021.05-2025.03</span>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-building"></i>
+                          <h3 class="timeline-content font-bold">上海天壤智能科技有限公司</h3>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-user-tie"></i>
+                          <p class="timeline-title">AI产品经理</p>
+                      </div>
+                  </div>
+                  <div class="work-content timeline-content">
+                      <p>工作概述：作为金融线和大模型产品线唯一的产品经理，负责AI模型与产品商业化一系列工作。</p>
+                      <p>荣誉：获得闵行区"2024年度春申金字塔创新青年人才"（全司占比2/120）、公司内部"2023年度客户服务闪光侠"荣誉（全司占比1/160）。</p>
+                      <ul>
+                          <li>AI模型管理：构建模型质量保障SOP，主导20+AI模型从数据采集->标注->训练->评测->上线->迭代全流程管理，带领10人标注团队累计产出数十万张标注数据，优化检测/识别大模型准确率提升7%，推动试卷擦除模型迭代10+版本(市占率曾超50%)；协调项目需求与标注资源调配，确保高质量数据交付, 支撑项目POC及落地实施；</li>
+                          <li>AI产品规划与设计：从0到1主导企业级LLM应用开发平台、智能文档处理系统及C端教育工具的产品设计；从1到N持续优化AI数据标注与训练平台；负责需求分析、用户/竞品调研、原型设计、PRD撰写及上线后数据分析；</li>
+                          <li>Al云市场运营：负责AI模型API以商品形式进行销售与管理、客情维护；共上线20+款API服务，覆盖 AI生图/AI生文/OCR/图像文档处理类，3年服务250+家企业，沉淀2000万张用户数据；年销售额由0突破至300+万元；</li>
+                          <li>打造流量产品：0-1打造C端"小天试卷星(小程序)"，注册用户300万+，DAU峰值8万，营收超百万；B端"试卷去手写(API)"曾与百度建立合作，后日均调用量保持10W+；</li>
+                          <li>售前支持和项目落地：参与多个企业级POC，覆盖金融/教育/酒店/报关/医疗等行业，负责售前交流、方案制定、demo搭建、效果评测，高效推进售前环节；对实施项目做过程管理，控制范围/进度/成本，完成2个项目交付。</li>
+                      </ul>
+                  </div>
+              </div>
+
+              <!-- 雪橇网络 -->
+              <div class="timeline-card p-6 relative">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-header">
+                      <div class="timeline-header-item">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span class="timeline-date">2018.05-2021.04</span>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-building"></i>
+                          <h3 class="timeline-content font-bold">上海雪橇网络科技有限公司</h3>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-user-tie"></i>
+                          <p class="timeline-title">产品经理</p>
+                      </div>
+                  </div>
+                  <div class="timeline-date text-sm mb-4">岗位变迁：2年后端开发 → 1年产品经理</div>
+                  <div class="work-content timeline-content">
+                      <p>工作概述：主责公司内部工具类产品：APP、小程序等的产品管理，配合研发推进产品升级迭代。</p>
+                      <ul>
+                          <li>需求分析：分析出当前游戏模式仅1种、过度依赖用户在后台做大量逻辑配置操作、信息不直观等导致用户培训时间长、难度大，导致用户转化周期长、活跃度不高等痛点；</li>
+                          <li>产品创新：0-1打造2款线上线下虚实结合的PVP创新游戏产品（小程序、APP），结合LBS与低功耗蓝牙硬件(IBeacon)技术，创极简的配置且有高可玩性，促进订单量年同比增长60%。将"传统表单填写"改造为"拖拉拽"式可视化交互控制台，促进实景游戏线路数量年同比增长300%；</li>
+                          <li>产品研发：主导核心业务功能开发、关键业务模块重构、后端压力测试系统开发，系统成功应对高并发场景。</li>
+                      </ul>
+                  </div>
+              </div>
+
+              <!-- 恒沥贸易 -->
+              <div class="timeline-card p-6 relative">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-header">
+                      <div class="timeline-header-item">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span class="timeline-date">2016.07-2018.04</span>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-building"></i>
+                          <h3 class="timeline-content font-bold">上海恒沥贸易有限公司</h3>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-user-tie"></i>
+                          <p class="timeline-title">Java工程师</p>
+                      </div>
+                  </div>
+                  <div class="work-content timeline-content">
+                      <p>工作概述：参与完成公司自研产品"跨境电商平台"的10个+后端功能开发（购物车、下单支付、促销计算、UGC、PGC发布等），对接快递100、银联支付、微信支付等多个第三方API。</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div id="projects" class="content-section">
+      <h2 class="section-title">项目案例</h2>
+      
+      <!-- 添加项目导航 -->
+      <div class="project-nav">
+          <div class="project-nav-container">
+              <div class="project-nav-item active" data-target="ai-cloud">AI云市场</div>
+              <div class="project-nav-item" data-target="llm-platform">大模型应用开发平台</div>
+              <div class="project-nav-item" data-target="doc-system">智能文档处理系统</div>
+              <div class="project-nav-item" data-target="ai-data-platform">AI数据标注平台</div>
+              <div class="project-nav-item" data-target="ai-education">AI教育工具</div>
+          </div>
+      </div>
+      
+      <!-- 时间轴容器 -->
+      <div class="relative py-12">
+          <!-- 时间轴内容 -->
+          <div class="relative space-y-12">
+              <!-- AI云市场 -->
+              <div id="ai-cloud" class="timeline-card p-6 relative">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-header">
+                      <div class="timeline-header-item">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span class="timeline-date">2021.09-2023.08</span>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-project-diagram"></i>
+                          <h3 class="timeline-content font-bold">AI云市场</h3>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-user-tie"></i>
+                          <p class="timeline-title">产品经理</p>
+                      </div>
+                  </div>
+                  <div class="work-content timeline-content">
+                      <p>项目描述：主导天壤AI云服务从0到1的体系建设，通过标准化封装模型API，构建多云市场分发渠道与数据驱动的运营体系，并沉淀高价值行业数据反哺模型优化，实现技术资源变现与数据飞轮效应。</p>
+                      <ul>
+                          <li>问题分析：天壤在多个行业定制项目中积累了100+ AI模型，但缺乏标准化输出渠道，自有AI云平台长期无人维护转化率0，核心业务依赖大客户定制订单，通过公有云服务可以拓展客户流量入口，并沉淀数据优化模型；</li>
+                          <li>运营体系搭建​：推动模型API标准化（鉴权/文档/监控）、制作模型介绍素材、制定定价策略（按次/QPS/私有化）、多平台（阿里云/腾讯云/AWS共6个云市场）商品上架，实现AI能力标准化输出；</li>
+                          <li>数据化运营​：周复盘追踪模型订单量/销售额/调用量/并发性能等数据，跟踪竞品的模型质量与售价变化，适时调整商品策略；建立客户跟进SOP，分层转化小微客户（API订阅）与大客户（定制需求对接）；</li>
+                          <li>跨团队协同​：协调技术部完成API性能优化与监控运维，协同团队执行客情维护，形成"模型-商品-销售"闭环。</li>
+                      </ul>
+                      <p class="mt-4 font-bold">项目成果：</p>
+                      <ul>
+                          <li>API年销售额从0增长至300万元​，覆盖中小客户250+，并推动3个百万级定制订单转化。</li>
+                          <li>沉淀高价值行业数据，反哺模型准确率提升15%+，支撑公司核心业务增长。</li>
+                      </ul>
+                  </div>
+              </div>
+
+              <!-- 大模型应用开发平台 -->
+              <div id="llm-platform" class="timeline-card p-6 relative">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-header">
+                      <div class="timeline-header-item">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span class="timeline-date">2023.02-2023.12</span>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-project-diagram"></i>
+                          <h3 class="timeline-content font-bold">大模型应用开发平台</h3>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-user-tie"></i>
+                          <p class="timeline-title">产品经理</p>
+                      </div>
+                  </div>
+                  <div class="work-content timeline-content">
+                      <p>项目描述：0-1为公司设计的"天壤小白-LLM应用开发平台"是行业首批以大模型为核心的工具链产品。</p>
+                      <ul>
+                          <li>需求分析：深入洞察企业级客户在LLM应用落地的核心瓶颈（​高计算成本、技术门槛过高、数据安全隐患、知识库问答"幻觉"频发导致准确率仅约60%​），主导制定并确立了产品战略方向​，旨在打造一个安全、高效、易用的企业级大模型应用开发平台。</li>
+                          <li>调研：调研主流LLM应用开发平台，包括Coze、Dify、阿里百炼、华为毕昇、百度千帆、讯飞星火等，输出竞品分析报告，输出各家产品定位与优劣势分析，挖掘天壤小白的机会点合理制定迭代计划。</li>
+                          <li>产品定义与功能设计：
+                              <ul>
+                                  <li>模块化工作台设计：设计业界首批集LLM大模型管理、Prompt工程、RAG增强、Agent协作框架、低代码工作流编排于一体的可视化统一工作台；</li>
+                                  <li>混合记忆架构：支持上下文、递归式摘要压缩、向量检索、结构化存储等多种大模型记忆模式，能更好的适配长序列、多轮对话、翻译、摘要等多种业务场景；</li>
+                                  <li>企业知识工程：支持处理结构化、非结构化多种类型的文档，可自定义索引，建立企业向量数据库，并支持动态更新；基于Layout-OCR融合技术，制定非结构化文档批量处理规则，生成摘要/关键词/结构化QA对；</li>
+                                  <li>RAG增强：支持关键词+语义混合搜索，召回结果智能重排序（Rerank），并提供贯穿流程的Prompt工程能力（可配置、可调试）​​，显著提升大模型上下文理解精度；</li>
+                                  <li>全流程可观测性与工程化支持​：集成AI应用版本管理、日志跟踪、badcase标注、多维数据看板​，保障AI应用的持续运营。</li>
+                              </ul>
+                          </li>
+                      </ul>
+                      <p class="mt-4 font-bold">项目成果：</p>
+                      <ul>
+                          <li>仅历时6个月完成产品规划-商业化发布全流程，助力斩获行业首个百万级别大模型订单（某建筑头部企业）；</li>
+                          <li>POC达20+客户，成单率25%，累计营收数百万；
+                              <ul>
+                                  <li>酒店集团企业知识库问答准确率提升35%，过滤70%工单问题；管道运输业知识库搭建效率提升60倍，1天完成3个月的知识整理工作；科研领域论文数据抽取效率提升100倍，62年降低至0.5年；金融领域文档&票证数据提取准确率提升超20%；</li>
+                                  <li>沉淀10+行业知识库文档数据，累计收集测试集3000+，覆盖大部分企业知识库场景；</li>
+                              </ul>
+                          </li>
+                          <li>建立天壤内部知识库问答助手，提升了销售&售前在工作中查找资料的效率（30分钟降低至2分钟/天）。</li>
+                      </ul>
+                  </div>
+              </div>
+
+              <!-- 智能文档处理系统 -->
+              <div id="doc-system" class="timeline-card p-6 relative">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-header">
+                      <div class="timeline-header-item">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span class="timeline-date">2024.1-2024.6</span>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-project-diagram"></i>
+                          <h3 class="timeline-content font-bold">智能文档处理系统</h3>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-user-tie"></i>
+                          <p class="timeline-title">产品经理</p>
+                      </div>
+                  </div>
+                  <div class="work-content timeline-content">
+                      <p>项目描述：作为"GeoGPT"产品中的文献处理模块，具备文档对话和数据抽取能力，由天壤与之江实验室联合研发；</p>
+                      <ul>
+                          <li>需求分析：地学实验数据具有高度分散、术语专业、表达形式多样（表格、文字、图表）、单位复杂等特点，且文献排版不规则（图文混排、多栏、公式等），传统OCR+规则难以胜任，人工处理1万篇论文需62人年，严重阻碍研究进程。数据是发现新地学特征的基础，因此数据抽取效率的提升将加速科研创新；</li>
+                          <li>关键技术路径验证：领域知识结构化，协同领域专家深度合作，梳理100+ 核心字段及其复杂关联关系；设计从文档的"全文 -> 章节 -> 段落/图/表 -> 字段值"的多层抽取路径及规则；基于GeoGPT、GPT-4.0、Claude 结合Prompt 工程完成字段抽取验证；设计评估指标（字段准确率、召回率、F1值）；</li>
+                          <li>产品定义与功能设计：
+                              <ul>
+                                  <li>非结构化文档理解引擎：理解文档视觉布局信息​（识别标题/正文/图表/多栏等），并转化为大模型可理解的结构化元数据输入；</li>
+                                  <li>规则引擎与灵活配置：可创建抽取数据模板，定义字段基本信息、约束条件、关联关系；可精准控制抽取范围，指定从某个章节、图表、段落进行抽取；多种提取策略，包括关键词匹配、大模型语义理解、OCR表格提取、调用第三方API；可视化编排流程（DAG视图），支持拖拽式配置与调试；</li>
+                                  <li>文档对话功能​：支持基于多篇文档进行混合问答；元素级精准交互，可对段落/图/表进行提问；结果可溯源；</li>
+                                  <li>任务管理与流程闭环：支持批量化任务调度，基于规则引擎和置信度建立人机协同的质检机制；</li>
+                                  <li>结构化数据归档：​ 最终抽取数据按模板存入数据库，支持导出、API访问，无缝对接下游统计分析平台。</li>
+                              </ul>
+                          </li>
+                      </ul>
+                      <p class="mt-4 font-bold">项目成果：</p>
+                      <ul>
+                          <li>革命性效率提升（62年→0.5年）：​ 将 1万篇地学论文的数据抽取周期​，从传统人工模式预估的 62年/人​，缩短至机器辅助下的 180天​，效率提升超 100倍；字段级精准抽取率针对不同类型字段达到 80%-95%；机器自动化处理率​ >70% (剩余30%触发高效率质检流程)；</li>
+                          <li>POC达10+客户，成单率30%，应用在金融机构投研分析、风险管理、合规审查等核心业务环节中。</li>
+                      </ul>
+                  </div>
+              </div>
+
+              <!-- AI数据标注平台 -->
+              <div id="ai-data-platform" class="timeline-card p-6 relative">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-header">
+                      <div class="timeline-header-item">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span class="timeline-date">2021.5-2021.10</span>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-project-diagram"></i>
+                          <h3 class="timeline-content font-bold">AI数据标注平台</h3>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-user-tie"></i>
+                          <p class="timeline-title">产品经理</p>
+                      </div>
+                  </div>
+                  <div class="work-content timeline-content">
+                      <p>项目描述：通过AI预标注与任务管理机制，更高效得为CV/OCR等AI模型提供高质量训练数据与评测数据。</p>
+                      <ul>
+                          <li>问题分析：现有的标注工具使用不便捷，纯人工标注耗时长；因人为与管理因素导致标注质量难控制；效率低和质量低对模型训练的直接造成负面影响，导致模型训练迭代周期长、效果不佳。</li>
+                          <li>产品优化：
+                              <ul>
+                                  <li>人机协同体系：引入"两录一校"机制，双AI预标注结合人工校验，标注效率提升5~20倍</li>
+                                  <li>质量管控闭环：构建三层质检体系（AI预标注+交叉验证+专家抽检），推动审核错误率从14%降至1%</li>
+                                  <li>交互升级：UI层级重组，减少人眼移动距离与频次，操作路径缩短70%，并减少60%冗余点击</li>
+                                  <li>规范任务管理：搭建任务分发-过程监控-质量追溯体系，并通过标注行为建立标注员绩效评估模块</li>
+                                  <li>持续进化机制：搭建专家反馈闭环体系，针对预处理后人为修改过的数据，自动标记为badcase进入大模型训练数据池。</li>
+                              </ul>
+                          </li>
+                      </ul>
+                      <p class="mt-4 font-bold">项目成果：</p>
+                      <ul>
+                          <li>成本下降与效率提升：标注效率的提升，促使单项目标注综合成本下降82%（对比纯人工标注），助力客户AI模型迭代周期从3个月压缩至2周内完成；</li>
+                          <li>算法增益：基于平台产出的质量训练集，驱动核心算法指标突破：检测与识别大模型准确率提升7pt，手写体检测漏检率8.4%降至1.2%，复杂版面票证字符级准确率和整张准确率分别为99.2% 和95%</li>
+                      </ul>
+                  </div>
+              </div>
+
+              <!-- AI教育工具 -->
+              <div id="ai-education" class="timeline-card p-6 relative">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-header">
+                      <div class="timeline-header-item">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span class="timeline-date">2022.10-2025.03</span>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-project-diagram"></i>
+                          <h3 class="timeline-content font-bold">AI教育工具</h3>
+                      </div>
+                      <div class="timeline-header-item">
+                          <i class="fas fa-user-tie"></i>
+                          <p class="timeline-title">产品经理</p>
+                      </div>
+                  </div>
+                  <div class="work-content timeline-content">
+                      <p>项目描述：0-1搭建小程序"小天试卷星"，通过拍照去手写/错题整理等功能，帮助家长在教育场景中提升辅导效用。</p>
+                      <ul>
+                          <li>精准场景切入：围绕试卷还原场景，1个月完成MVP版本，上线3个月用户自然增长20万，验证PMF；</li>
+                          <li>调研：竞品调研为对主流同类工具（蜜蜂试卷、夸克学习、橙果错题本等），分析各家产品定位与特性；用户调研为定期做问卷调研、一对一用户访谈；逐步迭代产品，建立小天试卷星产品优势；</li>
+                          <li>产品设计与迭代：
+                              <ul>
+                                  <li>后台搭建：基于低代码平台搭建小程序数据管理后台，支持对产品功能、用户数据、运营内容、会员套餐、订单进行管理，实现小程序可持续化运营，降低20%开发成本；</li>
+                                  <li>产品创新：独创"AI错题卷自动生成"功能（CV多模型联用），操作步骤简化至2步，功能使用率提升700%；以查缺补漏为核心，设计"强干预型个性化推荐"底层推荐系统；</li>
+                                  <li>大模型应用：基于LLM+CV+TTS+ASR等技术栈，借助低代码配置后台，支持非技术人员通过可视化界面快速搭建AI应用；2个月敏捷上线30+个大模型应用，覆盖AI写作、英语口语练习、拍照解题等；用户周活跃提升20pt，单日平均使用时长提升1.8倍；</li>
+                                  <li>数据驱动优化：通过埋点监测用户行为数据（点击率、转化率、使用时长），结合AB测试，推动3个功能使用率提升，支付转化率提升15%</li>
+                              </ul>
+                          </li>
+                      </ul>
+                      <p class="mt-4 font-bold">项目成果：累计注册用户300万+，DAU峰值8万，累计营收破百万，次月复购率65%，实现盈利。</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div id="portfolio" class="content-section">
+      <h2 class="text-2xl font-bold mb-6 text-primary">作品集</h2>
+      <!-- 作品集内容将在这里添加 -->
+    </div>
+  </div>
+</div>
+
+<!-- 修改聊天对话框 -->
+<div id="chatModal" class="fixed inset-0 bg-black/80 hidden items-center justify-end z-50">
+    <div class="bg-black/90 w-[400px] h-[600px] rounded-lg border border-primary relative">
+        <div class="p-6 border-b border-primary">
+            <h3 class="text-xl font-bold text-primary">开启面试-和她聊聊工作</h3>
+        </div>
+        <button onclick="closeChat()" class="absolute top-6 right-6 text-white hover:text-primary">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+        <div class="w-full h-[calc(100%-5rem)] overflow-hidden">
+            <iframe
+                src="https://udify.app/chatbot/59tnkCD2flttXQHd"
+                style="width: 100%; height: 100%"
+                frameborder="0"
+                allow="microphone">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取URL参数
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section') || 'experience';
+
+    // 激活对应的导航项和内容区域
+    document.querySelector(`[data-section="${section}"]`).classList.add('active');
+    document.getElementById(section).classList.add('active');
+
+    // 导航点击事件
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.getAttribute('data-section');
+            
+            // 更新URL
+            window.history.pushState({}, '', `?section=${section}`);
+            
+            // 移除所有active类
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(content => content.classList.remove('active'));
+            
+            // 添加active类到当前项
+            this.classList.add('active');
+            document.getElementById(section).classList.add('active');
+        });
+    });
+
+    // 项目导航点击事件
+    const navItems = document.querySelectorAll('.project-nav-item');
+    const projectNav = document.querySelector('.project-nav');
+    const mainContent = document.getElementById('main-content');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            navItems.forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            this.classList.add('active');
+            const targetId = this.getAttribute('data-target');
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement && mainContent) {
+                const navHeight = projectNav.offsetHeight;
+                const offset = 20; // 额外向上偏移20px
+                const targetPosition = targetElement.offsetTop - navHeight - offset;
+                
+                mainContent.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // 页面加载时默认滚动到AI云市场
+    const aiMarketItem = document.querySelector('[data-target="ai-cloud"]');
+    if (aiMarketItem) {
+        // 使用 timeout 确保在其他内容加载和渲染完毕后再触发点击
+        setTimeout(() => {
+            aiMarketItem.click();
+        }, 100);
+    }
+});
+</script>
+</body>
+</html> 

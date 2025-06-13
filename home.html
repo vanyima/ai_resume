@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://udify.app">
+<title>AI 简历</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#00F5FF',
+secondary: '#9400D3'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
+<style>
+@keyframes glitch {
+0% {
+clip-path: inset(40% 0 61% 0);
+transform: skew(0.15deg);
+}
+20% {
+clip-path: inset(75% 0 28% 0);
+transform: skew(0.8deg);
+}
+40% {
+clip-path: inset(28% 0 71% 0);
+transform: skew(0.4deg);
+}
+60% {
+clip-path: inset(13% 0 82% 0);
+transform: skew(0.25deg);
+}
+80% {
+clip-path: inset(52% 0 43% 0);
+transform: skew(0.5deg);
+}
+100% {
+clip-path: inset(67% 0 32% 0);
+transform: skew(0.2deg);
+}
+}
+@keyframes scanline {
+0% {
+transform: translateY(-100%);
+}
+100% {
+transform: translateY(100%);
+}
+}
+@keyframes pulse {
+0% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.4); }
+70% { box-shadow: 0 0 0 10px rgba(0, 245, 255, 0); }
+100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0); }
+}
+@keyframes float {
+0% { transform: translateY(0px); }
+50% { transform: translateY(-10px); }
+100% { transform: translateY(0px); }
+}
+@keyframes circuit {
+0% { background-position: 0% 0%; }
+100% { background-position: 100% 100%; }
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; }
+}
+@keyframes neuralNet {
+0% { transform: scale(1); opacity: 0.8; }
+50% { transform: scale(1.1); opacity: 1; }
+100% { transform: scale(1); opacity: 0.8; }
+}
+.cyber-button {
+position: relative;
+overflow: hidden;
+transition: all 0.3s ease;
+border: 2px solid #00F5FF;
+transform-style: preserve-3d;
+perspective: 1000px;
+}
+.cyber-button::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 2px;
+background: #00F5FF;
+animation: scanline 2s linear infinite;
+}
+.cyber-button:hover {
+background: rgba(0, 245, 255, 0.1);
+box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+transform: rotateX(-30deg) scale(1.05);
+}
+.glitch-text {
+position: relative;
+animation: glitch 0.1s linear infinite;
+}
+.pulse-avatar {
+animation: pulse 2s infinite, float 6s ease-in-out infinite;
+}
+.neon-border {
+box-shadow: 0 0 10px #00F5FF,
+inset 0 0 10px #00F5FF;
+}
+.neural-node {
+position: absolute;
+width: 4px;
+height: 4px;
+background: #00F5FF;
+border-radius: 50%;
+animation: neuralNet 2s infinite;
+}
+body {
+background: #0A0A0A;
+font-family: 'Rajdhani', sans-serif;
+min-height: 100vh;
+background-image:
+radial-gradient(circle at 50% 50%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+background-size: 100% 100%, 20px 20px, 20px 20px;
+position: relative;
+overflow: hidden;
+}
+body::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Cpath d='M30 30l15-15M30 30l-15 15M30 30l15 15M30 30l-15-15' stroke='rgba(0,245,255,0.1)' stroke-width='0.5'/%3E%3C/svg%3E");
+animation: circuit 20s linear infinite;
+pointer-events: none;
+}
+h1, h2, h3 {
+font-family: 'Orbitron', sans-serif;
+}
+.tech-text {
+font-family: 'Fira Code', monospace;
+}
+.fade-in {
+    opacity: 1;
+}
+.chat-button {
+width: 300px;
+background: linear-gradient(45deg, rgba(255,0,51,0.2), rgba(255,0,51,0.4));
+position: relative;
+overflow: hidden;
+animation: futuristic-flicker 2s linear infinite;
+transform-style: preserve-3d;
+transition: transform 0.5s ease;
+}
+.chat-button::after {
+content: '';
+position: absolute;
+top: -50%;
+left: -50%;
+width: 200%;
+height: 200%;
+background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+transform: rotate(45deg);
+animation: shimmer 3s infinite;
+}
+.digital-twin-tag {
+position: absolute;
+top: -10px;
+right: -10px;
+background: rgba(0,245,255,0.2);
+padding: 2px 8px;
+border-radius: 4px;
+font-size: 12px;
+color: #00F5FF;
+border: 1px solid #00F5FF;
+}
+@keyframes shimmer {
+0% {
+transform: translate(-50%, -50%) rotate(45deg);
+}
+100% {
+transform: translate(150%, 150%) rotate(45deg);
+}
+}
+@media (max-width: 768px) {
+    #chatModal {
+        justify-content: center !important;
+    }
+    #chatModal > div {
+        width: 100% !important;
+        height: 100vh !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+    #chatModal > div {
+        width: 60% !important;
+        height: 90vh !important;
+    }
+}
+@media (max-width: 1200px) and (min-width: 1025px) {
+    #chatModal > div {
+        width: 45% !important;
+    }
+}
+/* 修改打字机效果 */
+.typing-text {
+    overflow: hidden;
+    border-right: 2px solid #00F5FF;
+    white-space: nowrap;
+    margin: 0 auto;
+    animation: typing 3.5s steps(40, end),
+               blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #00F5FF }
+}
+
+/* 新增：为按钮添加科技感动画 */
+@keyframes futuristic-flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        box-shadow:
+            0 0 5px rgba(0, 245, 255, 0.2),
+            inset 0 0 5px rgba(0, 245, 255, 0.1);
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+        box-shadow: none;
+    }
+}
+
+.chat-button {
+    animation: futuristic-flicker 2s linear infinite;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.chat-button:hover {
+    transform: rotateX(-30deg) scale(1.05); /* 减小翻转角度 */
+}
+</style>
+<script>
+window.difyChatbotConfig = {
+    token: '59tnkCD2flttXQHd',
+    isDev: false,
+    baseUrl: 'https://udify.app',
+    containerProps: {
+        style: {
+            width: '100%',
+            height: '100%',
+            minHeight: '700px'
+        }
+    }
+};
+</script>
+<script src="https://udify.app/embed.js"></script>
+</head>
+<body class="min-h-[1024px] text-white overflow-hidden" id="mainBody">
+<div class="neural-node" style="top:10%; left:20%;"></div>
+<div class="neural-node" style="top:30%; left:80%;"></div>
+<div class="neural-node" style="top:70%; left:15%;"></div>
+<div class="neural-node" style="top:85%; left:75%;"></div>
+<div class="neural-node" style="top:50%; left:50%;"></div>
+<div class="max-w-[1440px] h-screen mx-auto px-8 flex items-center">
+<div class="w-full grid grid-cols-12 gap-8">
+<!-- Left Section -->
+<div class="col-span-4 flex flex-col items-center space-y-6">
+<div class="relative">
+<div class="w-64 h-64 rounded-lg overflow-hidden neon-border pulse-avatar">
+<img src="avatar1.PNG"
+alt="头像"
+class="w-full h-full object-cover">
+</div>
+<div class="absolute -top-2 -right-2 bg-[#FF0033] text-white px-3 py-1 text-sm tech-text">
+AI.ID: FYT-2025
+</div>
+</div>
+<div class="text-center">
+    <h1 class="text-3xl font-bold mb-2 text-primary">范玉婷</h1>
+    <p class="text-[#00FF41] tech-text">AI产品经理 / 9年经验</p>
+    <div class="mt-4 space-y-2">
+        <div class="bg-black/50 p-3 rounded-lg border border-primary/30">
+            <p class="text-primary"><span class="font-bold">云南大学</span> (211/双一流)</p>
+            <p class="text-gray-300">数字媒体技术</p>
+            <p class="text-gray-400 text-sm">2013.09 - 2017.06</p>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Center Section -->
+<div class="col-span-8 space-y-8">
+<div class="bg-black/50 p-6 rounded-lg border border-primary">
+<p class="text-lg leading-relaxed">
+<span class="text-primary">[系统初始化...载入档案...]</span><br>
+<div style="font-family: 'Arial', sans-serif; color: white; line-height: 1.6; background-color: #0a192f; padding: 20px; border-radius: 8px;">
+    <p style="position: relative; padding-left: 30px; margin-bottom: 15px;">
+        <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span>
+        <strong style="color: #00F5FF;">资深AI产品</strong>：4年AI产品设计，主导设计业内首批LLM应用开发平台，斩获行业首个百万大模型订单
+    </p>
+    <p style="position: relative; padding-left: 30px; margin-bottom: 15px;">
+        <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span>
+        <strong style="color: #00F5FF;">AI云服务商业化</strong>：负责AI模型管理与商品化运营；累计为250+教育/打印机/互联网等行业客户提供AI云服务，单API日调用量10万+
+    </p>
+    <p style="position: relative; padding-left: 30px; margin-bottom: 15px;">
+        <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span>
+        <strong style="color: #00F5FF;">复杂系统架构</strong>：擅长构建企业级低代码后台，缩短AI应用开发周期
+    </p>
+    <p style="position: relative; padding-left: 30px;">
+        <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span>
+        <strong style="color: #00F5FF;">企业AI解决方案</strong>：为金融/酒店/管道运输/科研/教育行业客户设计AI解决方案
+    </p>
+</div>
+</p>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<a href="detail.html?section=experience" class="cyber-button bg-black/50 p-6 rounded-lg text-center">
+<i class="fas fa-microchip text-[#00F5FF] text-2xl mb-3"></i>
+<p class="text-[#00F5FF] font-bold tech-text">工作经历</p>
+</a>
+<a href="detail.html?section=projects" class="cyber-button bg-black/50 p-6 rounded-lg text-center">
+<i class="fas fa-project-diagram text-[#9400D3] text-2xl mb-3"></i>
+<p class="text-[#9400D3] font-bold tech-text">项目案例</p>
+</a>
+<a href="detail.html?section=portfolio" class="cyber-button bg-black/50 p-6 rounded-lg text-center">
+<i class="fas fa-brain text-[#00FF41] text-2xl mb-3"></i>
+<p class="text-[#00FF41] font-bold tech-text">作品集</p>
+</a>
+</div>
+<div class="bg-black/50 p-6 rounded-lg mt-4 flex justify-between items-center border border-[#FF0033]/30">
+<div>
+<h3 class="text-xl font-bold mb-2 text-[#FF0033]">数字分身</h3>
+<p class="text-gray-400">实时对话  |  24*7在线  |  模拟面试</p>
+</div>
+<button onclick="openChat()" class="cyber-button chat-button px-8 py-4 rounded-lg text-[#FF0033] tech-text relative whitespace-nowrap">
+<i class="fas fa-comments mr-2"></i>
+和她聊聊
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 修改聊天对话框 -->
+<div id="chatModal" class="fixed inset-0 bg-black/80 hidden items-center justify-end z-50" onclick="closeChat(event)">
+    <div class="bg-black/90 w-1/3 h-[90vh] rounded-lg border border-primary relative md:mr-8 my-[5vh]" onclick="event.stopPropagation()">
+        <button onclick="closeChat()" class="absolute top-4 right-4 text-white hover:text-primary">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+        <div class="w-full h-full overflow-hidden">
+            <iframe
+                src="https://udify.app/chatbot/59tnkCD2flttXQHd"
+                style="width: 100%; height: 100%"
+                frameborder="0"
+                allow="microphone">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+function closeChat(event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    document.getElementById('chatModal').classList.add('hidden');
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 移除之前的动画相关代码
+});
+</script>
+
+<!-- 修改内容结构 -->
+<div class="min-h-screen flex flex-col items-center justify-center py-20">
+    <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold text-primary">系统初始化-载入档案</h2>
+    </div>
+
+    <div class="text-center">
+        <h1 class="text-3xl font-bold mb-2 text-primary">范玉婷</h1>
+        <p class="text-[#00FF41] tech-text">AI产品经理 / 9年经验</p>
+        <div class="mt-4 space-y-2">
+            <div class="bg-black/50 p-3 rounded-lg border border-primary/30">
+                <p class="text-primary"><span class="font-bold">云南大学</span> (211/双一流)</p>
+                <p class="text-gray-300">数字媒体技术</p>
+                <p class="text-gray-400 text-sm">2013.09 - 2017.06</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 其他内容保持不变 -->
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
