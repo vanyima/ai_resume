@@ -218,47 +218,133 @@ animation: flux 2s linear infinite;
 }
 
 .cyberpunk {
-padding: 20px 15px 15px;
+padding: 0;
 position: relative;
-font-size: 1.1rem;
-color: var(--yellow-color);
-border: none;
-background: linear-gradient(#000, #000) padding-box,
-           linear-gradient(45deg, var(--yellow-color), #87CEEB, #4169E1, var(--yellow-color)) border-box;
-border: 16px solid transparent;
-border-right-width: 5px;
-border-left-width: 5px;
-border-bottom-width: 12px;
+border: 2px solid transparent;
+border-radius: 0;
 clip-path: polygon(
     0px 25px,
     26px 0px,
-    calc(60% - 25px) 0px,
-    60% 25px, 
-    100% 25px, 
-    100% calc(100% - 10px),
-    calc(100% - 15px) calc(100% - 10px),
-    calc(80% - 10px) calc(100% - 10px),
-    calc(80% - 15px) 100%,
-    80px calc(100% - 0px),
-    65px calc(100% - 15px),
+    calc(70% - 15px) 0px,
+    70% 15px,
+    calc(100% - 10px) 15px,
+    100% 35px,
+    100% calc(100% - 15px),
+    calc(100% - 20px) 100%,
+    calc(80% - 10px) 100%,
+    calc(80% - 25px) calc(100% - 15px),
+    60px calc(100% - 15px),
+    45px calc(100% - 0px),
     0% calc(100% - 15px)
 );
 box-shadow: 
-    inset 0 0 15px rgba(0, 245, 255, 0.2),
-    0 0 15px rgba(0, 245, 255, 0.3);
-animation: borderPulse 3s ease-in-out infinite alternate;
+    0 0 20px rgba(148, 0, 211, 0.4),
+    inset 0 0 20px rgba(148, 0, 211, 0.1),
+    0 0 40px rgba(0, 245, 255, 0.2);
+animation: cardGlow 3s ease-in-out infinite alternate;
+position: relative;
+overflow: visible;
 }
 
-@keyframes borderPulse {
+.cyberpunk .text-content {
+background: #0A0A0A;
+padding: 24px 20px 20px;
+font-size: 0.95rem;
+color: #FFFFFF;
+line-height: 1.4;
+clip-path: polygon(
+    0px 25px,
+    26px 0px,
+    calc(70% - 15px) 0px,
+    70% 15px,
+    calc(100% - 10px) 15px,
+    100% 35px,
+    100% calc(100% - 15px),
+    calc(100% - 20px) 100%,
+    calc(80% - 10px) 100%,
+    calc(80% - 25px) calc(100% - 15px),
+    60px calc(100% - 15px),
+    45px calc(100% - 0px),
+    0% calc(100% - 15px)
+);
+}
+
+.cyberpunk .text-content p {
+margin-bottom: 8px;
+}
+
+.cyberpunk .text-content strong {
+color: #FFFFFF;
+}
+
+.cyberpunk::before {
+content: "";
+position: absolute;
+top: -2px;
+left: -2px;
+right: -2px;
+bottom: -2px;
+background: linear-gradient(45deg, 
+    #9400D3 0%, 
+    #00F5FF 25%, 
+    #9400D3 50%, 
+    #00F5FF 75%, 
+    #9400D3 100%);
+background-size: 400% 400%;
+clip-path: polygon(
+    0px 25px,
+    26px 0px,
+    calc(70% - 15px) 0px,
+    70% 15px,
+    calc(100% - 10px) 15px,
+    100% 35px,
+    100% calc(100% - 15px),
+    calc(100% - 20px) 100%,
+    calc(80% - 10px) 100%,
+    calc(80% - 25px) calc(100% - 15px),
+    60px calc(100% - 15px),
+    45px calc(100% - 0px),
+    0% calc(100% - 15px)
+);
+z-index: -1;
+animation: borderFlow 4s linear infinite;
+}
+
+.cyberpunk::after {
+content: "AI-ID";
+position: absolute;
+top: -12px;
+right: 80px;
+background: linear-gradient(45deg, #9400D3, #00F5FF);
+color: #000;
+padding: 4px 12px;
+font-size: 0.7rem;
+font-weight: bold;
+font-family: 'Orbitron', sans-serif;
+clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+
+@keyframes cardGlow {
 0% {
     box-shadow: 
-        inset 0 0 15px rgba(0, 245, 255, 0.2),
-        0 0 15px rgba(0, 245, 255, 0.3);
+        0 0 20px rgba(148, 0, 211, 0.4),
+        inset 0 0 20px rgba(148, 0, 211, 0.1),
+        0 0 40px rgba(0, 245, 255, 0.2);
 }
 100% {
     box-shadow: 
-        inset 0 0 25px rgba(0, 245, 255, 0.4),
-        0 0 25px rgba(0, 245, 255, 0.5);
+        0 0 30px rgba(148, 0, 211, 0.6),
+        inset 0 0 30px rgba(148, 0, 211, 0.2),
+        0 0 60px rgba(0, 245, 255, 0.4);
+}
+}
+
+@keyframes borderFlow {
+0% {
+    background-position: 0% 50%;
+}
+100% {
+    background-position: 400% 50%;
 }
 }
 
@@ -277,32 +363,6 @@ background-size: 5px 5px;
 background-position: -13px -3px;
 }
 
-/* 文本框右侧小编号样式 */
-.cyberpunk:before {
-content: "AI-2025";
-display: block;
-position: absolute;
-bottom: -12px;
-right: 25px;
-padding: 2px 2px 0px 2px;
-font-size: 0.6rem;
-line-height: 0.6rem;
-color: #000;
-background-color: var(--yellow-color);
-border-left: 2px solid var(--border-color);
-}
-
-.cyberpunk.inverse:before {
-content: "SYS-71";
-right: 90px;
-bottom: 9px;
-}
-
-.cyberpunk.inverse:before, .cyberpunk:before {
-background-color: #000;
-color: var(--yellow-color);
-}
-
 /* 减少动效以提升性能 */
 @media (prefers-reduced-motion: reduce) {
 .neon, .flux {
@@ -313,7 +373,7 @@ color: var(--yellow-color);
 /* 响应式设计 */
 @media (max-width: 768px) {
 /* 手机端纵向布局 */
-.max-w-\[1440px\] {
+.max-w-\[1200px\] {
     padding: 0 1rem;
     height: auto;
     min-height: 100vh;
@@ -321,7 +381,7 @@ color: var(--yellow-color);
     padding-bottom: 2rem;
 }
 
-.max-w-\[1440px\] .grid {
+.max-w-\[1200px\] .grid {
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -349,9 +409,9 @@ color: var(--yellow-color);
     order: 1;
 }
 
-.col-span-4 .w-80 {
-    width: 220px;
-    height: 220px;
+.col-span-4 .w-48 {
+    width: 180px;
+    height: 180px;
 }
 
 .col-span-4 h1 {
@@ -403,7 +463,7 @@ color: var(--yellow-color);
 
 @media (max-width: 480px) {
 /* 超小屏幕调整 */
-.max-w-\[1440px\] .grid {
+.max-w-\[1200px\] .grid {
     padding-top: 8rem;
     gap: 1.5rem;
 }
@@ -414,9 +474,9 @@ color: var(--yellow-color);
     letter-spacing: 1px;
 }
 
-.col-span-4 .w-80 {
-    width: 180px;
-    height: 180px;
+.col-span-4 .w-48 {
+    width: 150px;
+    height: 150px;
 }
 
 .col-span-4 h1 {
@@ -450,65 +510,50 @@ color: var(--yellow-color);
     opacity: 1;
 }
 .chat-button {
-width: 300px;
-background: linear-gradient(45deg, rgba(255,0,51,0.2), rgba(255,0,51,0.4));
-position: relative;
-overflow: hidden;
-border: 2px solid #FF0033;
-transition: all 0.3s ease;
+    width: 200px;
+    background: linear-gradient(135deg, rgba(220, 38, 127, 0.3), rgba(239, 68, 68, 0.5));
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #FF0033;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 0 15px rgba(255, 0, 51, 0.4),
+        inset 0 0 15px rgba(255, 0, 51, 0.1);
 }
+
+.chat-button:hover {
+    background: linear-gradient(135deg, rgba(220, 38, 127, 0.4), rgba(239, 68, 68, 0.6));
+    box-shadow: 
+        0 0 25px rgba(255, 0, 51, 0.6),
+        inset 0 0 20px rgba(255, 0, 51, 0.2);
+    transform: translateY(-2px);
+}
+
 .chat-button::before {
-content: '';
-position: absolute;
-top: -2px;
-left: -2px;
-right: -2px;
-bottom: -2px;
-background: linear-gradient(45deg, #FF0033, #00F5FF, #9400D3, #00FF41, #FF0033);
-background-size: 400% 400%;
-border-radius: inherit;
-z-index: -1;
-animation: gradient-flow 3s ease infinite;
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #FF0033, #FF6B6B, #FF0033);
+    background-size: 200% 200%;
+    border-radius: inherit;
+    z-index: -1;
+    animation: techBorderFlow 3s ease infinite;
 }
-.chat-button::after {
-content: '';
-position: absolute;
-top: 0;
-left: -100%;
-width: 100%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-animation: flow-light 2s linear infinite;
-}
-.digital-twin-tag {
-position: absolute;
-top: -10px;
-right: -10px;
-background: rgba(0,245,255,0.2);
-padding: 2px 8px;
-border-radius: 4px;
-font-size: 12px;
-color: #00F5FF;
-border: 1px solid #00F5FF;
-}
-@keyframes gradient-flow {
-0% {
-background-position: 0% 50%;
-}
-50% {
-background-position: 100% 50%;
-}
-100% {
-background-position: 0% 50%;
-}
-}
-@keyframes flow-light {
-0% {
-left: -100%;
-}
-100% {
-left: 100%;
-}
+
+@keyframes techBorderFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 @media (max-width: 768px) {
     #chatModal {
@@ -552,9 +597,117 @@ left: 100%;
     50% { border-color: #00F5FF }
 }
 
-.chat-button:hover {
-    background: linear-gradient(45deg, rgba(255,0,51,0.4), rgba(255,0,51,0.6));
-    box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
+
+
+/* 功能卡片样式 - 横向布局 */
+.feature-card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid transparent;
+    border-radius: 0;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    clip-path: polygon(
+        15px 0%, 
+        100% 0%, 
+        100% calc(100% - 15px), 
+        calc(100% - 15px) 100%, 
+        0% 100%, 
+        0% 15px
+    );
+    box-shadow: 
+        0 0 15px rgba(148, 0, 211, 0.3),
+        inset 0 0 15px rgba(148, 0, 211, 0.1);
+}
+
+.feature-card::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        rgba(148, 0, 211, 0.8) 0%, 
+        rgba(0, 245, 255, 0.8) 50%, 
+        rgba(148, 0, 211, 0.8) 100%);
+    background-size: 200% 200%;
+    clip-path: polygon(
+        15px 0%, 
+        100% 0%, 
+        100% calc(100% - 15px), 
+        calc(100% - 15px) 100%, 
+        0% 100%, 
+        0% 15px
+    );
+    z-index: -1;
+    opacity: 0.4;
+    animation: cardBorderFlow 3s linear infinite;
+    transform: skew(-10deg);
+    filter: blur(10px);
+}
+
+.feature-card::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(45deg, #9400D3, #00F5FF);
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 0 25px rgba(148, 0, 211, 0.5),
+        inset 0 0 25px rgba(148, 0, 211, 0.2),
+        0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
+    animation-duration: 1.5s;
+    transform: skew(-8deg);
+    filter: blur(2px);
+}
+
+.feature-card .feature-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    flex-shrink: 0;
+    stroke: url(#iconGradient);
+    filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.6));
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(148, 0, 211, 0.8));
+}
+
+.feature-card .feature-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #FFFFFF;
+    margin: 0;
+    flex: 1;
+}
+
+@keyframes cardBorderFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
 }
 </style>
 <script>
@@ -574,6 +727,16 @@ window.difyChatbotConfig = {
 <script src="https://udify.app/embed.js"></script>
 </head>
 <body class="min-h-screen text-white" id="mainBody">
+<!-- SVG渐变定义 -->
+<svg width="0" height="0">
+  <defs>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00F5FF;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#9400D3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00F5FF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
 <div class="neural-node" style="top:10%; left:20%;"></div>
 <div class="neural-node" style="top:30%; left:80%;"></div>
 <div class="neural-node" style="top:70%; left:15%;"></div>
@@ -596,12 +759,12 @@ window.difyChatbotConfig = {
     </div>
 </div>
 
-<div class="max-w-[1440px] min-h-screen mx-auto px-8 flex items-center pt-32 md:min-h-screen">
-<div class="w-full grid grid-cols-12 gap-8">
+<div class="max-w-[1200px] min-h-screen mx-auto px-6 flex items-center pt-32 md:min-h-screen">
+<div class="w-full grid grid-cols-12 gap-6">
 <!-- Left Section -->
 <div class="col-span-4 flex flex-col items-center space-y-6">
 <div class="relative">
-<div class="w-80 h-80 rounded-lg overflow-hidden neon-border pulse-avatar">
+<div class="w-48 h-48 rounded-lg overflow-hidden neon-border pulse-avatar">
 <img src="avatar1.PNG"
 alt="头像"
 class="w-full h-full object-cover">
@@ -612,57 +775,44 @@ AI.ID: FYT-2025
 </div>
 <div class="text-center">
     <h1 class="text-3xl font-bold mb-2 text-primary">范玉婷</h1>
-    <p class="text-[#00FF41] tech-text">AI产品经理 / 9年经验</p>
-    <div class="mt-4 space-y-2">
-        <div class="bg-black/50 p-3 rounded-lg border border-primary/30">
-            <p class="text-primary"><span class="font-bold">云南大学</span> (211/双一流)</p>
-            <p class="text-gray-300">数字媒体技术</p>
-            <p class="text-gray-400 text-sm">2013.09 - 2017.06</p>
-        </div>
-    </div>
+    <p class="text-[#00FF41] tech-text">AI产品经理</p>
 </div>
 </div>
 <!-- Center Section -->
 <div class="col-span-8 space-y-8">
 <div class="cyberpunk relative z-10">
-<p class="text-lg leading-relaxed">
-  <div style="font-family: 'Arial', sans-serif; color: white; line-height: 1.6; padding: 0px;">
-    <p style="position: relative; padding-left: 10px; margin-bottom: 15px;">
-        <!-- <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span> -->
-        <strong style="color: #00F5FF;">资深AI产品</strong>：4年AI产品设计，主导设计业内首批LLM应用开发平台，斩获行业首个百万大模型订单
-    </p>
-    <p style="position: relative; padding-left: 10px; margin-bottom: 15px;">
-        <!-- <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span> -->
-        <strong style="color: #00F5FF;">AI云服务商业化</strong>：累计为250+教育/打印机/互联网等行业客户提供AI云服务，单API日调用量10万+
-    </p>
-    <p style="position: relative; padding-left: 10px; margin-bottom: 15px;">
-        <!-- <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 14px; background-color: #00F5FF; box-shadow: 0 0 12px rgba(0, 245, 255, 0.8); transform: rotate(45deg);"></span> -->
-        <strong style="color: #00F5FF;">复杂系统架构</strong>：擅长构建企业级低代码后台，缩短AI应用开发周期
-    </p>
-    
+<div class="text-content">
+    <p><strong>资深AI产品</strong>：4年AI产品设计，主导设计业内首批LLM应用开发平台，斩获行业首个百万大模型订单</p>
+    <p><strong>AI云服务商业化</strong>：累计为250+教育/打印机/互联网等行业客户提供AI云服务，单API日调用量10万+</p>
+    <p><strong>复杂系统架构</strong>：擅长构建企业级低代码后台，缩短AI应用开发周期</p>
 </div>
-</p>
 </div>
 <div class="grid grid-cols-3 gap-4">
-<a href="detail.html?section=experience" class="cyber-button bg-black/50 p-6 rounded-lg text-center">
-<i class="fas fa-microchip text-[#00F5FF] text-2xl mb-3"></i>
-<p class="text-[#00F5FF] font-bold tech-text">工作经历</p>
+<a href="detail.html?section=experience" class="feature-card">
+<svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z"/>
+</svg>
+<p class="feature-title">工作经历</p>
 </a>
-<a href="detail.html?section=projects" class="cyber-button bg-black/50 p-6 rounded-lg text-center">
-<i class="fas fa-project-diagram text-[#9400D3] text-2xl mb-3"></i>
-<p class="text-[#9400D3] font-bold tech-text">项目案例</p>
+<a href="detail.html?section=projects" class="feature-card">
+<svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+</svg>
+<p class="feature-title">项目案例</p>
 </a>
-<a href="detail.html?section=portfolio" class="cyber-button bg-black/50 p-6 rounded-lg text-center">
-<i class="fas fa-brain text-[#00FF41] text-2xl mb-3"></i>
-<p class="text-[#00FF41] font-bold tech-text">作品集</p>
+<a href="detail.html?section=portfolio" class="feature-card">
+<svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+</svg>
+<p class="feature-title">作品集</p>
 </a>
 </div>
-<div class="bg-black/50 p-6 rounded-lg mt-4 flex justify-between items-center border border-[#FF0033]/30">
+<div class="bg-black/30 p-6 rounded-lg mt-4 flex justify-between items-center border border-[#FF0033]/30">
 <div>
 <h3 class="text-xl font-bold mb-2 text-[#FF0033] youshebiao-font">AI数字分身</h3>
 <p class="text-gray-400">多轮对话  |   模拟面试 | 24*7在线  </p>
 </div>
-<button onclick="openChat()" class="cyber-button chat-button px-8 py-4 rounded-lg text-[#FF0033] tech-text relative whitespace-nowrap text-lg">
+<button onclick="openChat()" class="cyber-button chat-button px-6 py-3 text-white tech-text relative whitespace-nowrap text-base">
 <i class="fas fa-comments mr-2"></i>
 和她聊聊
 </button>
@@ -673,26 +823,12 @@ AI.ID: FYT-2025
 
 <!-- 底部区域 - 确保页面有足够内容支持滚动 -->
 <div class="w-full py-16 mt-16 border-t border-primary/20">
-    <div class="max-w-[1440px] mx-auto px-8 text-center">
-        <div class="cyberpunk">
-            <h3 class="text-xl font-bold mb-4 text-primary">联系方式</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <div class="flex items-center justify-center space-x-2">
-                    <i class="fas fa-envelope text-primary"></i>
-                    <span>邮箱咨询</span>
-                </div>
-                <div class="flex items-center justify-center space-x-2">
-                    <i class="fas fa-phone text-primary"></i>
-                    <span>电话沟通</span>
-                </div>
-                <div class="flex items-center justify-center space-x-2">
-                    <i class="fas fa-wechat text-primary"></i>
-                    <span>微信交流</span>
-                </div>
+          <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <div class="mt-8 text-gray-400 text-sm">
+                <p>和我的AI队友一起捣鼓出了我的AI简历和其他几个小项目——虽然还不够精致，但在反复调试中慢慢进步着。<br> 团队里有AI设计师MasterGo、即梦、AI工程师Cursor，还有AI助理Dify和Coze;<br> 还有一群强力智囊团：持续输出的Claude、DeepSeek、Gemini、豆包、文心一言</p>
             </div>
-        </div>
         <div class="mt-8 text-gray-400 text-sm">
-            <p>© 2025 AI数字简历 | 技术驱动创新</p>
+            <p>© vanyima 2025</p>
         </div>
     </div>
 </div>
@@ -705,7 +841,7 @@ AI.ID: FYT-2025
         </button>
         <div class="w-full h-full overflow-hidden">
             <iframe
-                src="https://udify.app/chatbot/59tnkCD2flttXQHd"
+                src="https://udify.app/chatbot/dXOGs4pTdPO0BPmY"
                 style="width: 100%; height: 100%"
                 frameborder="0"
                 allow="microphone">
@@ -729,26 +865,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- 修改内容结构 -->
-<div class="min-h-screen flex flex-col items-center justify-center py-20">
-    <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold text-primary">系统初始化-载入档案</h2>
-    </div>
-
-    <div class="text-center">
-        <h1 class="text-3xl font-bold mb-2 text-primary">范玉婷</h1>
-        <p class="text-[#00FF41] tech-text">AI产品经理 / 9年经验</p>
-        <div class="mt-4 space-y-2">
-            <div class="bg-black/50 p-3 rounded-lg border border-primary/30">
-                <p class="text-primary"><span class="font-bold">云南大学</span> (211/双一流)</p>
-                <p class="text-gray-300">数字媒体技术</p>
-                <p class="text-gray-400 text-sm">2013.09 - 2017.06</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 其他内容保持不变 -->
-</div>
 
 <script src="script.js"></script>
 </body>

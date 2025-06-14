@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const body = document.getElementById('mainBody');
-    const buttons = document.querySelectorAll('.cyber-button');
+    const buttons = document.querySelectorAll('.cyber-button:not(.chat-button)');
     const chatModal = document.getElementById('chatModal');
 
     if (body) {
