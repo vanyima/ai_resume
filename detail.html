@@ -82,16 +82,30 @@ body {
 /* 响应式导航 */
 @media (max-width: 768px) {
   .nav-item {
-    font-size: 0.875rem;
-    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
   }
   
-  .nav-item i {
+  /* 隐藏所有图标：i标签、SVG、img */
+  .nav-item i,
+  .nav-item svg,
+  .nav-item img {
     display: none;
   }
   
   .flex.space-x-8 {
-    gap: 1rem;
+    gap: 0.5rem;
+  }
+  
+  /* 导航容器适配 */
+  nav .max-w-7xl {
+    padding: 0 1rem;
+  }
+  
+  nav .h-16 {
+    height: auto;
+    min-height: 3rem;
+    padding: 0.5rem 0;
   }
 }
 
@@ -99,12 +113,38 @@ body {
   .flex.space-x-8 {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.25rem;
   }
   
   .nav-item {
-    font-size: 0.75rem;
-    padding: 0.5rem;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.4rem;
+    white-space: nowrap;
+  }
+  
+  /* 进一步缩小导航容器间距 */
+  nav .max-w-7xl {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-item {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.3rem;
+  }
+  
+  .flex.space-x-8 {
+    gap: 0.1rem;
+  }
+  
+  /* 超小屏幕时进一步优化 */
+  nav .max-w-7xl {
+    padding: 0 0.25rem;
+  }
+  
+  nav .h-16 {
+    min-height: 2.5rem;
   }
 }
 
