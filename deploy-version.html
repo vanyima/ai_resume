@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 简历 - GitHub Pages版本</title>
+<!-- 这里是简化的版本，用于GitHub Pages部署 -->
+<!-- 复制home.html的head部分内容，但修改数据收集方式 -->
+</head>
+<body>
+<!-- 页面内容与home.html相同 -->
+
+<script>
+// GitHub Pages版本 - 使用第三方数据收集服务
+class SimpleAnalytics {
+    constructor() {
+        this.trackPageView();
+        this.bindEvents();
+    }
+    
+    trackPageView() {
+        // 选项1: 使用Google Analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'AI Resume Home',
+                page_location: window.location.href
+            });
+        }
+        
+        // 选项2: 使用简单的统计服务(如 umami, plausible)
+        // 或发送到第三方webhook服务
+        
+        console.log('页面访问记录 (GitHub Pages版本)');
+    }
+    
+    trackClick(action) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+                event_category: 'engagement',
+                event_label: action
+            });
+        }
+        console.log('点击记录:', action);
+    }
+    
+    bindEvents() {
+        // 绑定点击事件...
+    }
+}
+
+const analytics = new SimpleAnalytics();
+</script>
+</body>
+</html> 

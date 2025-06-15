@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Han+Sans+CN:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <script>
 tailwind.config = {
 theme: {
@@ -16,123 +17,39 @@ extend: {
 colors: {
 primary: '#00F5FF',
 secondary: '#9400D3'
-},
-borderRadius: {
-'none': '0px',
-'sm': '2px',
-DEFAULT: '4px',
-'md': '8px',
-'lg': '12px',
-'xl': '16px',
-'2xl': '20px',
-'3xl': '24px',
-'full': '9999px',
-'button': '4px'
 }
 }
 }
 }
 </script>
 <style>
-@keyframes glitch {
-0% {
-clip-path: inset(40% 0 61% 0);
-transform: skew(0.15deg);
-}
-20% {
-clip-path: inset(75% 0 28% 0);
-transform: skew(0.8deg);
-}
-40% {
-clip-path: inset(28% 0 71% 0);
-transform: skew(0.4deg);
-}
-60% {
-clip-path: inset(13% 0 82% 0);
-transform: skew(0.25deg);
-}
-80% {
-clip-path: inset(52% 0 43% 0);
-transform: skew(0.5deg);
-}
-100% {
-clip-path: inset(67% 0 32% 0);
-transform: skew(0.2deg);
-}
-}
-@keyframes scanline {
-0% {
-transform: translateY(-100%);
-}
-100% {
-transform: translateY(100%);
-}
-}
-@keyframes pulse {
-0% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.4); }
-70% { box-shadow: 0 0 0 10px rgba(0, 245, 255, 0); }
-100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0); }
-}
-@keyframes float {
-0% { transform: translateY(0px); }
-50% { transform: translateY(-10px); }
-100% { transform: translateY(0px); }
-}
 @keyframes circuit {
 0% { background-position: 0% 0%; }
 100% { background-position: 100% 100%; }
 }
-@keyframes fadeIn {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; }
-}
+
 @keyframes neuralNet {
 0% { transform: scale(1); opacity: 0.8; }
 50% { transform: scale(1.1); opacity: 1; }
 100% { transform: scale(1); opacity: 0.8; }
 }
-.cyber-button {
-position: relative;
-overflow: hidden;
-transition: all 0.3s ease;
-border: 2px solid #00F5FF;
+
+@keyframes flowingGradient {
+0% {
+    background-position: 0% 50%;
 }
-.cyber-button::before {
-content: '';
-position: absolute;
-top: 0;
-left: -100%;
-width: 100%;
-height: 2px;
-background: #00F5FF;
-animation: scanline 2s linear infinite;
+50% {
+    background-position: 100% 50%;
 }
-.cyber-button:hover {
-background: rgba(0, 245, 255, 0.1);
-box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+100% {
+    background-position: 0% 50%;
 }
-.glitch-text {
-position: relative;
-animation: glitch 0.1s linear infinite;
 }
-.pulse-avatar {
-animation: pulse 2s infinite, float 6s ease-in-out infinite;
-}
-.neon-border {
-box-shadow: 0 0 10px #00F5FF,
-inset 0 0 10px #00F5FF;
-}
-.neural-node {
-position: absolute;
-width: 4px;
-height: 4px;
-background: #00F5FF;
-border-radius: 50%;
-animation: neuralNet 2s infinite;
-}
+
+/* 背景动效 */
 body {
 background: #0A0A0A;
-font-family: 'Rajdhani', sans-serif;
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 min-height: 100vh;
 background-image:
 radial-gradient(circle at 50% 50%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
@@ -144,6 +61,7 @@ position: relative;
 overflow-x: hidden;
 overflow-y: auto;
 }
+
 body::before {
 content: '';
 position: absolute;
@@ -155,406 +73,174 @@ background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox=
 animation: circuit 20s linear infinite;
 pointer-events: none;
 }
+
+.neural-node {
+position: absolute;
+width: 4px;
+height: 4px;
+background: #00F5FF;
+border-radius: 50%;
+animation: neuralNet 2s infinite;
+}
+
 h1, h2, h3 {
 font-family: 'Orbitron', sans-serif;
 }
+
 .tech-text {
 font-family: 'Fira Code', monospace;
 }
-.youshebiao-font {
-font-family: 'Noto Sans SC', sans-serif;
-font-weight: 900;
-}
 
-/* 霓虹大标题效果 - CYBER PUNK 风格 */
-.neon-title-container {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 1rem;
-font-family: 'Orbitron', sans-serif;
-font-size: 3.5rem;
-font-weight: 700;
-text-transform: uppercase;
-letter-spacing: 3px;
-}
-
-.neon {
-text-shadow: 0 0 3vw #00F5FF;
-animation: neon 2s ease-in-out infinite;
-}
-
-.flux {
-text-shadow: 0 0 3vw #9400D3;
-animation: flux 2s linear infinite;
-}
-
-@keyframes neon {
-0%, 100% {
-    text-shadow: 0 0 1vw #00F5FF, 0 0 3vw #00F5FF, 0 0 10vw #00F5FF, 0 0 10vw #00F5FF, 0 0 .4vw #87CEEB, .5vw .5vw .1vw #4682B4;
-    color: #00FFFF;
-}
-50% {
-    text-shadow: 0 0 .5vw #003366, 0 0 1.5vw #003366, 0 0 5vw #003366, 0 0 5vw #003366, 0 0 .2vw #003366, .5vw .5vw .1vw #1E3A8A;
-    color: #4682B4;
-}
-}
-
-@keyframes flux {
-0%, 100% {
-    text-shadow: 0 0 1vw #9400D3, 0 0 3vw #9400D3, 0 0 10vw #9400D3, 0 0 10vw #9400D3, 0 0 .4vw #DA70D6, .5vw .5vw .1vw #663399;
-    color: #FF00FF;
-}
-50% {
-    text-shadow: 0 0 .5vw #4B0082, 0 0 1.5vw #4B0082, 0 0 5vw #4B0082, 0 0 5vw #4B0082, 0 0 .2vw #4B0082, .5vw .5vw .1vw #2E0052;
-    color: #663399;
-}
-}
-
-/* Cyberpunk 2077 风格不规则文本框 */
-:root {
---yellow-color: #00F5FF;
---border-color: #9400D3;
-}
-
-.cyberpunk {
-padding: 0;
+/* 视频样式 */
+.video-container {
 position: relative;
-border: 2px solid transparent;
-border-radius: 0;
-clip-path: polygon(
-    0px 25px,
-    26px 0px,
-    calc(70% - 15px) 0px,
-    70% 15px,
-    calc(100% - 10px) 15px,
-    100% 35px,
-    100% calc(100% - 15px),
-    calc(100% - 20px) 100%,
-    calc(80% - 10px) 100%,
-    calc(80% - 25px) calc(100% - 15px),
-    60px calc(100% - 15px),
-    45px calc(100% - 0px),
-    0% calc(100% - 15px)
-);
-box-shadow: 
-    0 0 20px rgba(148, 0, 211, 0.4),
-    inset 0 0 20px rgba(148, 0, 211, 0.1),
-    0 0 40px rgba(0, 245, 255, 0.2);
-animation: cardGlow 3s ease-in-out infinite alternate;
-position: relative;
-overflow: visible;
+width: 100%;
+height: 100vh;
+overflow: hidden;
 }
 
-.cyberpunk .text-content {
-background: #0A0A0A;
-padding: 24px 20px 20px;
-font-size: 0.95rem;
-color: #FFFFFF;
+.video-container video {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+/* 渐变分割线 */
+.gradient-divider {
+height: 2px;
+background: linear-gradient(90deg, #00F5FF 0%, transparent 100%);
+margin: 0.8rem 0 1.8rem 0;
+}
+
+/* 简介文字样式调整 */
+.intro-text {
+font-size: 0.8rem;
+font-weight: normal;
 line-height: 1.4;
-clip-path: polygon(
-    0px 25px,
-    26px 0px,
-    calc(70% - 15px) 0px,
-    70% 15px,
-    calc(100% - 10px) 15px,
-    100% 35px,
-    100% calc(100% - 15px),
-    calc(100% - 20px) 100%,
-    calc(80% - 10px) 100%,
-    calc(80% - 25px) calc(100% - 15px),
-    60px calc(100% - 15px),
-    45px calc(100% - 0px),
-    0% calc(100% - 15px)
-);
 }
 
-.cyberpunk .text-content p {
-margin-bottom: 8px;
-}
-
-.cyberpunk .text-content strong {
-color: #FFFFFF;
-}
-
-.cyberpunk::before {
-content: "";
-position: absolute;
-top: -2px;
-left: -2px;
-right: -2px;
-bottom: -2px;
-background: linear-gradient(45deg, 
-    #9400D3 0%, 
-    #00F5FF 25%, 
-    #9400D3 50%, 
-    #00F5FF 75%, 
-    #9400D3 100%);
-background-size: 400% 400%;
-clip-path: polygon(
-    0px 25px,
-    26px 0px,
-    calc(70% - 15px) 0px,
-    70% 15px,
-    calc(100% - 10px) 15px,
-    100% 35px,
-    100% calc(100% - 15px),
-    calc(100% - 20px) 100%,
-    calc(80% - 10px) 100%,
-    calc(80% - 25px) calc(100% - 15px),
-    60px calc(100% - 15px),
-    45px calc(100% - 0px),
-    0% calc(100% - 15px)
-);
-z-index: -1;
-animation: borderFlow 4s linear infinite;
-}
-
-.cyberpunk::after {
-content: "AI-ID";
-position: absolute;
-top: -12px;
-right: 80px;
-background: linear-gradient(45deg, #9400D3, #00F5FF);
-color: #000;
-padding: 4px 12px;
-font-size: 0.7rem;
-font-weight: bold;
-font-family: 'Orbitron', sans-serif;
-clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
-}
-
-@keyframes cardGlow {
-0% {
-    box-shadow: 
-        0 0 20px rgba(148, 0, 211, 0.4),
-        inset 0 0 20px rgba(148, 0, 211, 0.1),
-        0 0 40px rgba(0, 245, 255, 0.2);
-}
-100% {
-    box-shadow: 
-        0 0 30px rgba(148, 0, 211, 0.6),
-        inset 0 0 30px rgba(148, 0, 211, 0.2),
-        0 0 60px rgba(0, 245, 255, 0.4);
+@media (min-width: 1024px) {
+.intro-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 }
 
-@keyframes borderFlow {
-0% {
-    background-position: 0% 50%;
-}
-100% {
-    background-position: 400% 50%;
-}
-}
-
-.cyberpunk.inverse {
+/* AI对话按钮 */
+.chat-button {
+background: linear-gradient(135deg, #00F5FF 0%, #9400D3 50%, #00F5FF 100%);
+background-size: 200% 200%;
+animation: flowingGradient 3s ease infinite;
 border: none;
-padding: 40px 15px 30px;
-color: #000;
-background-color: var(--yellow-color);
-border-right: 2px solid var(--border-color);
+border-radius: 8px;
+transition: all 0.3s ease;
+box-shadow: 0 4px 15px rgba(0, 245, 255, 0.3);
 }
 
-.dotted, .dotted:before, .dotted:after {
-background: var(--yellow-color);
-background-image: radial-gradient(#00000021 1px, transparent 0);
-background-size: 5px 5px;
-background-position: -13px -3px;
+.chat-button:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(0, 245, 255, 0.5);
 }
 
-/* 减少动效以提升性能 */
-@media (prefers-reduced-motion: reduce) {
-.neon, .flux {
-    animation: none !important;
+/* 平行四边形模块 */
+.parallelogram-card {
+position: relative;
+background: transparent;
+border: 2px solid #00F5FF;
+padding: 1rem 1.5rem;
+margin: 0.5rem;
+clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+transition: all 0.3s ease;
+text-decoration: none;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
 }
+
+.parallelogram-card:hover {
+background: rgba(0, 245, 255, 0.1);
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(0, 245, 255, 0.3);
+color: white;
+}
+
+/* 简介中的高亮文本 */
+.highlight {
+color: #00F5FF;
+font-weight: 600;
+}
+
+/* AI产品经理字体 */
+.youshebiao-font {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+font-weight: normal;
+}
+
+
+
+
+
+
+
+
+
+@keyframes circuitFlow {
+0% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+100% { background-position: 100% 100%, 100% 100%, 100% 100%, 100% 100%; }
+}
+
+@keyframes circuitPulse {
+0%, 100% { opacity: 0.3; }
+50% { opacity: 0.8; }
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-/* 手机端纵向布局 */
-.max-w-\[1200px\] {
-    padding: 0 1rem;
-    height: auto;
-    min-height: 100vh;
-    padding-top: 0;
-    padding-bottom: 2rem;
-}
-
-.max-w-\[1200px\] .grid {
-    display: flex;
+.main-container {
     flex-direction: column;
-    gap: 2rem;
-    padding-top: 10rem;
-    padding-bottom: 2rem;
 }
 
-/* 大标题样式调整 */
-.neon-title-container {
-    font-size: 2rem;
-    padding: 0 1rem;
-    letter-spacing: 1px;
-    flex-direction: column;
-    gap: 0.5rem;
-    position: relative;
-    top: auto;
-    margin-bottom: 0;
+.video-container {
+    height: 50vh;
 }
 
-/* 头像区域调整 */
-.col-span-4 {
-    width: 100%;
-    align-items: center;
-    text-align: center;
-    order: 1;
+.content-section {
+    padding: 2rem 1rem;
 }
 
-.col-span-4 .w-48 {
-    width: 180px;
-    height: 180px;
-}
-
-.col-span-4 h1 {
-    font-size: 2rem;
-    margin-top: 1rem;
-}
-
-.col-span-4 .tech-text {
-    font-size: 1.1rem;
-}
-
-/* 内容区域调整 */
-.col-span-8 {
-    width: 100%;
-    order: 2;
-}
-
-.cyberpunk {
-    padding: 15px 10px 12px;
-    border-width: 15px 3px 12px;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.cyberpunk::before {
-    bottom: -8px;
-    right: 20px;
-}
-
-/* 项目网格调整为纵向 */
-.grid-cols-3 {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
-/* AI数字分身区域调整 */
-.flex.justify-between {
+.feature-grid {
     flex-direction: column;
     gap: 1rem;
-    text-align: center;
 }
 
-.chat-button {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+.parallelogram-card {
+    margin: 0.25rem 0;
+}
+
+.name-title {
+    font-size: 1.75rem !important;
+}
+
+.intro-text {
+    font-size: 1rem !important;
+    font-weight: normal !important;
 }
 }
 
-@media (max-width: 480px) {
-/* 超小屏幕调整 */
-.max-w-\[1200px\] .grid {
-    padding-top: 8rem;
-    gap: 1.5rem;
+@media (max-width: 1024px) and (min-width: 769px) {
+#chatModal > div {
+    width: 60% !important;
+    height: 90vh !important;
+}
 }
 
-.neon-title-container {
-    font-size: 1.6rem;
-    padding: 0 0.5rem;
-    letter-spacing: 1px;
-}
-
-.col-span-4 .w-48 {
-    width: 150px;
-    height: 150px;
-}
-
-.col-span-4 h1 {
-    font-size: 1.8rem;
-    margin-top: 0.8rem;
-}
-
-.cyberpunk {
-    padding: 12px 8px 10px;
-    border-width: 12px 2px 10px;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
-
-.cyberpunk::before {
-    bottom: -6px;
-    right: 15px;
-    font-size: 0.5rem;
-}
-
-.grid-cols-3 a {
-    padding: 1rem;
-}
-
-.chat-button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-}
-}
-.fade-in {
-    opacity: 1;
-}
-.chat-button {
-    width: 200px;
-    background: linear-gradient(135deg, rgba(220, 38, 127, 0.3), rgba(239, 68, 68, 0.5));
-    position: relative;
-    overflow: hidden;
-    border: 2px solid #FF0033;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    box-shadow: 
-        0 0 15px rgba(255, 0, 51, 0.4),
-        inset 0 0 15px rgba(255, 0, 51, 0.1);
-}
-
-.chat-button:hover {
-    background: linear-gradient(135deg, rgba(220, 38, 127, 0.4), rgba(239, 68, 68, 0.6));
-    box-shadow: 
-        0 0 25px rgba(255, 0, 51, 0.6),
-        inset 0 0 20px rgba(255, 0, 51, 0.2);
-    transform: translateY(-2px);
-}
-
-.chat-button::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #FF0033, #FF6B6B, #FF0033);
-    background-size: 200% 200%;
-    border-radius: inherit;
-    z-index: -1;
-    animation: techBorderFlow 3s ease infinite;
-}
-
-@keyframes techBorderFlow {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
+@media (max-width: 1200px) and (min-width: 1025px) {
+#chatModal > div {
+    width: 45% !important;
     }
 }
+
 @media (max-width: 768px) {
     #chatModal {
         justify-content: center !important;
@@ -564,149 +250,6 @@ background-position: -13px -3px;
         height: 100vh !important;
         margin: 0 !important;
         border-radius: 0 !important;
-    }
-}
-@media (max-width: 1024px) and (min-width: 769px) {
-    #chatModal > div {
-        width: 60% !important;
-        height: 90vh !important;
-    }
-}
-@media (max-width: 1200px) and (min-width: 1025px) {
-    #chatModal > div {
-        width: 45% !important;
-    }
-}
-/* 修改打字机效果 */
-.typing-text {
-    overflow: hidden;
-    border-right: 2px solid #00F5FF;
-    white-space: nowrap;
-    margin: 0 auto;
-    animation: typing 3.5s steps(40, end),
-               blink-caret .75s step-end infinite;
-}
-
-@keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-}
-
-@keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: #00F5FF }
-}
-
-
-
-/* 功能卡片样式 - 横向布局 */
-.feature-card {
-    position: relative;
-    background: rgba(0, 0, 0, 0.3);
-    border: 2px solid transparent;
-    border-radius: 0;
-    padding: 1.2rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    clip-path: polygon(
-        15px 0%, 
-        100% 0%, 
-        100% calc(100% - 15px), 
-        calc(100% - 15px) 100%, 
-        0% 100%, 
-        0% 15px
-    );
-    box-shadow: 
-        0 0 15px rgba(148, 0, 211, 0.3),
-        inset 0 0 15px rgba(148, 0, 211, 0.1);
-}
-
-.feature-card::before {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, 
-        rgba(148, 0, 211, 0.8) 0%, 
-        rgba(0, 245, 255, 0.8) 50%, 
-        rgba(148, 0, 211, 0.8) 100%);
-    background-size: 200% 200%;
-    clip-path: polygon(
-        15px 0%, 
-        100% 0%, 
-        100% calc(100% - 15px), 
-        calc(100% - 15px) 100%, 
-        0% 100%, 
-        0% 15px
-    );
-    z-index: -1;
-    opacity: 0.4;
-    animation: cardBorderFlow 3s linear infinite;
-    transform: skew(-10deg);
-    filter: blur(10px);
-}
-
-.feature-card::after {
-    content: "";
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-    background: linear-gradient(45deg, #9400D3, #00F5FF);
-    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 
-        0 0 25px rgba(148, 0, 211, 0.5),
-        inset 0 0 25px rgba(148, 0, 211, 0.2),
-        0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.feature-card:hover::before {
-    opacity: 1;
-    animation-duration: 1.5s;
-    transform: skew(-8deg);
-    filter: blur(2px);
-}
-
-.feature-card .feature-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 0;
-    flex-shrink: 0;
-    stroke: url(#iconGradient);
-    filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.6));
-    transition: all 0.3s ease;
-}
-
-.feature-card:hover .feature-icon {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 15px rgba(148, 0, 211, 0.8));
-}
-
-.feature-card .feature-title {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    color: #FFFFFF;
-    margin: 0;
-    flex: 1;
-}
-
-@keyframes cardBorderFlow {
-    0% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 200% 50%;
     }
 }
 </style>
@@ -727,113 +270,87 @@ window.difyChatbotConfig = {
 <script src="https://udify.app/embed.js"></script>
 </head>
 <body class="min-h-screen text-white" id="mainBody">
-<!-- SVG渐变定义 -->
-<svg width="0" height="0">
-  <defs>
-    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00F5FF;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#9400D3;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#00F5FF;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-</svg>
+
+<!-- 背景装饰节点 -->
 <div class="neural-node" style="top:10%; left:20%;"></div>
 <div class="neural-node" style="top:30%; left:80%;"></div>
 <div class="neural-node" style="top:70%; left:15%;"></div>
 <div class="neural-node" style="top:85%; left:75%;"></div>
 <div class="neural-node" style="top:50%; left:50%;"></div>
 
-<!-- 顶部霓虹标题 -->
-<div class="absolute top-8 left-0 right-0 z-10 md:block">
-    <div class="neon-title-container">
-        <div class="neon">MY</div>
-        <div class="flux">DIGITAL HOMESTEAD</div>
+<!-- 主要内容区域 -->
+<div class="min-h-screen flex flex-col lg:flex-row main-container">
+    <!-- 左侧视频区域 -->
+    <div class="lg:w-1/2 video-container">
+        <video autoplay muted loop playsinline>
+            <source src="avatar.mp4" type="video/mp4">
+            您的浏览器不支持视频播放。
+        </video>
     </div>
+
+    <!-- 右侧内容区域 -->
+    <div class="lg:w-1/2 content-section flex flex-col justify-center p-8 lg:p-12">
+        <!-- 姓名和职位 -->
+        <div class="mb-6">
+                         <h1 class="name-title text-3xl lg:text-4xl font-bold mb-2">
+                 <span class="text-primary">范玉婷</span>
+                 <span class="text-white">/<span class="youshebiao-font">AI产品经理</span></span>
+             </h1>
 </div>
 
-<!-- 手机端顶部标题 -->
-<div class="block md:hidden fixed top-0 left-0 right-0 z-10 bg-black/80 backdrop-blur-md">
-    <div class="neon-title-container py-4">
-        <div class="neon">MY</div>
-        <div class="flux">DIGITAL HOMESTEAD</div>
-    </div>
+                 <!-- 简介 -->
+         <div class="mb-6 intro-text">
+             <p class="mb-2">
+                 资深AI产品：4年AI产品设计，主导设计业内首批LLM应用开发平台，斩获行业首个<span class="highlight">百万大模型订单</span>
+             </p>
+             <p class="mb-2">
+                 AI云服务商业化：累计为250+教育/打印机/互联网等行业客户提供AI云服务，单API日调用量<span class="highlight">10万+</span>
+             </p>
+             <p>
+                 复杂系统架构：擅长构建企业级低代码后台，缩短AI应用开发周期
+             </p>
 </div>
 
-<div class="max-w-[1200px] min-h-screen mx-auto px-6 flex items-center pt-32 md:min-h-screen">
-<div class="w-full grid grid-cols-12 gap-6">
-<!-- Left Section -->
-<div class="col-span-4 flex flex-col items-center space-y-6">
-<div class="relative">
-<div class="w-48 h-48 rounded-lg overflow-hidden neon-border pulse-avatar">
-<img src="avatar1.PNG"
-alt="头像"
-class="w-full h-full object-cover">
-</div>
-<div class="absolute -top-2 -right-2 bg-[#FF0033] text-white px-3 py-1 text-sm tech-text">
-AI.ID: FYT-2025
-</div>
-</div>
-<div class="text-center">
-    <h1 class="text-3xl font-bold mb-2 text-primary">范玉婷</h1>
-    <p class="text-[#00FF41] tech-text">AI产品经理</p>
-</div>
-</div>
-<!-- Center Section -->
-<div class="col-span-8 space-y-8">
-<div class="cyberpunk relative z-10">
-<div class="text-content">
-    <p><strong>资深AI产品</strong>：4年AI产品设计，主导设计业内首批LLM应用开发平台，斩获行业首个百万大模型订单</p>
-    <p><strong>AI云服务商业化</strong>：累计为250+教育/打印机/互联网等行业客户提供AI云服务，单API日调用量10万+</p>
-    <p><strong>复杂系统架构</strong>：擅长构建企业级低代码后台，缩短AI应用开发周期</p>
-</div>
-</div>
-<div class="grid grid-cols-3 gap-4">
-<a href="detail.html?section=experience" class="feature-card">
-<svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z"/>
-</svg>
-<p class="feature-title">工作经历</p>
+        <!-- 渐变分割线 -->
+        <div class="gradient-divider"></div>
+
+        <!-- AI对话按钮 -->
+        <button onclick="openChat()" class="chat-button w-full py-4 px-6 text-white font-semibold text-lg mb-8 flex items-center justify-center">
+            <i class="fas fa-robot mr-3 text-xl"></i>
+            和我AI对话
+        </button>
+
+                 <!-- 功能模块 -->
+         <div class="feature-grid flex flex-col lg:flex-row gap-4">
+             <a href="detail.html?section=experience" class="parallelogram-card flex-1">
+                 <i class="fas fa-briefcase mr-2 text-primary"></i>
+                 <span class="text-white font-semibold">工作经历</span>
 </a>
-<a href="detail.html?section=projects" class="feature-card">
-<svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
-</svg>
-<p class="feature-title">项目案例</p>
+             <a href="detail.html?section=projects" class="parallelogram-card  flex-1">
+                 <i class="fas fa-rocket mr-2 text-primary"></i>
+                 <span class="text-white font-semibold">项目案例</span>
 </a>
-<a href="detail.html?section=portfolio" class="feature-card">
-<svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
-</svg>
-<p class="feature-title">作品集</p>
+             <a href="detail.html?section=portfolio" class="parallelogram-card  flex-1">
+                 <i class="fas fa-star mr-2 text-primary"></i>
+                 <span class="text-white font-semibold">作品集</span>
 </a>
-</div>
-<div class="bg-black/30 p-6 rounded-lg mt-4 flex justify-between items-center border border-[#FF0033]/30">
-<div>
-<h3 class="text-xl font-bold mb-2 text-[#FF0033] youshebiao-font">AI数字分身</h3>
-<p class="text-gray-400">多轮对话  |   模拟面试 | 24*7在线  </p>
-</div>
-<button onclick="openChat()" class="cyber-button chat-button px-6 py-3 text-white tech-text relative whitespace-nowrap text-base">
-<i class="fas fa-comments mr-2"></i>
-和她聊聊
-</button>
-</div>
 </div>
 </div>
 </div>
 
-<!-- 底部区域 - 确保页面有足够内容支持滚动 -->
-<div class="w-full py-16 mt-16 border-t border-primary/20">
+<!-- 底部信息 -->
+<div class="w-full py-8 border-t border-primary/20 bg-black/20">
           <div class="max-w-[1200px] mx-auto px-6 text-center">
-            <div class="mt-8 text-gray-400 text-sm">
-                <p>和我的AI队友一起捣鼓出了我的AI简历和其他几个小项目; <br>虽然还不够精致，但在反复调试中慢慢进步着。<br> 团队里有AI设计师MasterGo、即梦，AI工程师Cursor，还有AI助理Dify和Coze; <br> 以及一群强力智囊团：持续输出的Claude、DeepSeek、Gemini、豆包、文心一言</p>
+        <div class="text-gray-400 text-sm">
+            <p>和我的AI队友一起捣鼓出了我的AI简历和其他几个小项目;<br>虽然还不够精致，但在反复调试中慢慢进步着。<br>团队里有AI设计师MasterGo、即梦，AI工程师Cursor，还有AI助理Dify和Coze;<br>以及一群强力智囊团：持续输出的Claude、DeepSeek、Gemini、豆包、文心一言</p>
             </div>
-        <div class="mt-8 text-gray-400 text-sm">
+        <div class="mt-4 text-gray-400 text-sm">
             <p>© vanyima 2025</p>
         </div>
     </div>
 </div>
 
-<!-- 修改聊天对话框 -->
+<!-- 聊天对话框 -->
 <div id="chatModal" class="fixed inset-0 bg-black/80 hidden items-center justify-end z-50" onclick="closeChat(event)">
     <div class="bg-black/90 w-1/3 h-[90vh] rounded-lg border border-primary relative md:mr-8 my-[5vh]" onclick="event.stopPropagation()">
         <button onclick="closeChat()" class="absolute top-4 right-4 text-white hover:text-primary">
@@ -851,21 +368,199 @@ AI.ID: FYT-2025
 </div>
 
 <script>
+// 数据埋点系统
+class Analytics {
+    constructor() {
+        this.apiUrl = '/api/analytics';
+        this.sessionId = this.generateSessionId();
+        this.init();
+    }
+
+    generateSessionId() {
+        return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    init() {
+        // 记录页面访问
+        this.trackPageView();
+        
+        // 绑定点击事件
+        this.bindClickEvents();
+    }
+
+    // 记录页面浏览量
+    trackPageView() {
+        const data = {
+            event: 'page_view',
+            page: 'home',
+            timestamp: new Date().toISOString(),
+            sessionId: this.sessionId,
+            userAgent: navigator.userAgent,
+            referrer: document.referrer
+        };
+        
+        this.sendData(data);
+        console.log('页面浏览记录:', data);
+    }
+
+    // 记录点击事件
+    trackClick(element, action) {
+        const data = {
+            event: 'click',
+            action: action,
+            element: element,
+            timestamp: new Date().toISOString(),
+            sessionId: this.sessionId
+        };
+        
+        this.sendData(data);
+        console.log('点击记录:', data);
+    }
+
+    // 绑定所有需要追踪的点击事件
+    bindClickEvents() {
+        // AI对话按钮
+        const chatButton = document.querySelector('[onclick="openChat()"]');
+        if (chatButton) {
+            chatButton.addEventListener('click', () => {
+                this.trackClick('chat_button', 'chat_button');
+            });
+        }
+
+        // 功能模块点击
+        const moduleLinks = document.querySelectorAll('.parallelogram-card');
+        moduleLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                let moduleName = 'unknown';
+                
+                if (href.includes('experience')) {
+                    moduleName = 'work_experience';
+                } else if (href.includes('projects')) {
+                    moduleName = 'projects';
+                } else if (href.includes('portfolio')) {
+                    moduleName = 'portfolio';
+                }
+                
+                this.trackClick('module_link', moduleName);
+            });
+        });
+    }
+
+    // 发送数据到后端
+    async sendData(data) {
+        try {
+            const response = await fetch(this.apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            console.log('数据发送成功:', result);
+        } catch (error) {
+            console.error('数据发送失败:', error);
+            // 发送失败时可以考虑存储到localStorage作为备份
+        }
+    }
+
+    // 获取指定日期的数据统计
+    async getAnalytics(date) {
+        try {
+            const response = await fetch(`${this.apiUrl}/${date}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const stats = await response.json();
+            return stats;
+        } catch (error) {
+            console.error('获取数据失败:', error);
+            return null;
+        }
+    }
+
+    // 获取一段时间内的数据
+    async getAnalyticsRange(startDate, endDate) {
+        try {
+            const response = await fetch(`${this.apiUrl}/range/${startDate}/${endDate}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const results = await response.json();
+            return results;
+        } catch (error) {
+            console.error('获取范围数据失败:', error);
+            return null;
+        }
+    }
+
+    // 显示今天的统计数据
+    async showTodayStats() {
+        const today = new Date().toISOString().split('T')[0];
+        const stats = await this.getAnalytics(today);
+        if (stats) {
+            console.table(stats);
+        }
+        return stats;
+    }
+
+    // 获取所有数据
+    async getAllAnalytics() {
+        try {
+            const response = await fetch(this.apiUrl);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const results = await response.json();
+            return results;
+        } catch (error) {
+            console.error('获取所有数据失败:', error);
+            return null;
+        }
+    }
+}
+
+// 初始化分析系统
+const analytics = new Analytics();
+
+// 将analytics对象暴露到全局，方便调试
+window.analytics = analytics;
+
+function openChat() {
+    document.getElementById('chatModal').classList.remove('hidden');
+    document.getElementById('chatModal').classList.add('flex');
+}
+
 function closeChat(event) {
     if (event) {
         event.stopPropagation();
     }
     document.getElementById('chatModal').classList.add('hidden');
+    document.getElementById('chatModal').classList.remove('flex');
 }
-</script>
 
-<script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 移除之前的动画相关代码
+    // 页面加载完成后的初始化
+    console.log('页面加载完成');
+    
+    // 显示使用说明
+    console.log(`
+🔍 数据埋点使用说明：
+• analytics.showTodayStats() - 查看今日统计
+• analytics.getAnalytics('2025-01-20') - 查看指定日期统计  
+• analytics.getAnalyticsRange('2025-01-01', '2025-01-31') - 查看时间段统计
+• analytics.getAllAnalytics() - 查看所有数据
+• 所有点击和访问数据都会自动存储到服务器文件系统中
+• 启动服务器：npm start，然后访问 http://localhost:3000
+    `);
 });
 </script>
 
-
-<script src="script.js"></script>
 </body>
 </html>
