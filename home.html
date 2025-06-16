@@ -409,13 +409,13 @@ font-weight: normal;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #0A0A0A 0%, #1a1a2e 50%, #16213e 100%);
+    background: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 10;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(1px);
     transition: opacity 0.8s ease-in-out;
 }
 
@@ -524,6 +524,7 @@ font-weight: normal;
     color: #00F5FF;
     cursor: pointer;
     transition: all 0.3s ease;
+    opacity: 0;
 }
 
 .mobile-play-hint:hover {
@@ -720,16 +721,34 @@ window.difyChatbotConfig = {
 <!-- 聊天对话框 -->
 <div id="chatModal" class="fixed inset-0 bg-black/80 hidden items-center justify-end z-50" onclick="closeChat(event)">
     <div class="bg-black/90 w-1/3 h-[90vh] rounded-lg border border-primary relative md:mr-8 my-[5vh]" onclick="event.stopPropagation()">
-        <button onclick="closeChat()" class="absolute top-4 right-4 text-white hover:text-primary">
+        <button onclick="closeChat()" class="absolute top-4 right-4 text-white hover:text-primary z-10">
             <i class="fas fa-times text-2xl"></i>
         </button>
         <div class="w-full h-full overflow-hidden">
             <iframe
+                id="chatIframe"
                 src="https://udify.app/chatbot/dXOGs4pTdPO0BPmY"
                 style="width: 100%; height: 100%"
                 frameborder="0"
-                allow="microphone">
+                allow="microphone"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox">
             </iframe>
+            <!-- 备用提示内容 -->
+            <div id="iframeError" class="hidden absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+                <div class="text-primary text-4xl mb-4">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 class="text-white text-xl mb-4">AI对话加载中...</h3>
+                <p class="text-gray-400 mb-6">如果长时间无法加载，可能是网络问题或浏览器兼容性问题</p>
+                <div class="space-y-3">
+                    <button onclick="retryIframe()" class="bg-primary text-black px-6 py-2 rounded font-semibold hover:bg-primary/80 transition-colors">
+                        重新加载
+                    </button>
+                    <button onclick="openInNewTab()" class="bg-transparent border border-primary text-primary px-6 py-2 rounded font-semibold hover:bg-primary/10 transition-colors">
+                        在新标签页打开
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -899,9 +918,17 @@ const analytics = new Analytics();
 // 将analytics对象暴露到全局，方便调试
 window.analytics = analytics;
 
-// 检测设备类型
+// 检测设备类型和浏览器环境
 function isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+}
+
+function isWechatBrowser() {
+    return /MicroMessenger/i.test(navigator.userAgent);
+}
+
+function isAndroidWechat() {
+    return /Android/i.test(navigator.userAgent) && /MicroMessenger/i.test(navigator.userAgent);
 }
 
 // 视频加载控制
@@ -911,53 +938,100 @@ function initVideoLoading() {
     const mobileAvatar = document.getElementById('mobileAvatar');
     const mobilePlayHint = document.getElementById('mobilePlayHint');
     const isMobile = isMobileDevice();
+    const isWechat = isWechatBrowser();
     
     console.log('设备类型:', isMobile ? '移动端' : '桌面端');
+    console.log('微信浏览器:', isWechat ? '是' : '否');
     
     if (video && loadingOverlay) {
         // 移动端特殊处理
         if (isMobile) {
-            console.log('移动端：使用图片替代视频');
-            // 移动端隐藏视频，直接显示图片
-            video.style.display = 'none';
+            console.log('移动端：优先尝试视频，失败则使用图片');
             
-            setTimeout(() => {
-                loadingOverlay.style.opacity = '0';
+            // 微信浏览器中尝试加载视频
+            if (isWechat) {
+                // 微信浏览器需要用户交互才能播放视频，先显示图片和播放提示
                 setTimeout(() => {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                        mobileAvatar.style.display = 'block';
+                        mobileAvatar.style.opacity = '1';
+                        mobilePlayHint.style.display = 'block';
+                        mobilePlayHint.style.opacity = '1';
+                    }, 800);
+                }, 1500);
+                
+                // 点击播放视频
+                mobilePlayHint.addEventListener('click', function() {
+                    video.style.display = 'block';
+                    video.muted = false; // 微信中可以尝试取消静音
+                    video.play().then(() => {
+                        mobileAvatar.style.display = 'none';
+                        mobilePlayHint.style.display = 'none';
+                        video.classList.add('loaded');
+                        console.log('微信浏览器视频播放成功');
+                    }).catch(err => {
+                        console.log('微信浏览器视频播放失败:', err);
+                        // 播放失败，继续显示图片
+                        video.style.display = 'none';
+                        mobileAvatar.style.display = 'block';
+                        mobilePlayHint.style.display = 'none';
+                    });
+                });
+                
+                // 点击图片也可以尝试播放视频
+                mobileAvatar.addEventListener('click', function() {
+                    if (mobilePlayHint.style.display !== 'none') {
+                        mobilePlayHint.click();
+                    }
+                });
+            } else {
+                // 普通移动浏览器，尝试自动播放视频
+                video.addEventListener('loadeddata', function() {
+                    console.log('移动端视频加载成功，尝试自动播放');
+                    video.play().then(() => {
+                        setTimeout(() => {
+                            loadingOverlay.style.opacity = '0';
+                            video.classList.add('loaded');
+                            setTimeout(() => {
+                                loadingOverlay.style.display = 'none';
+                            }, 800);
+                        }, 1000);
+                    }).catch(err => {
+                        console.log('移动端自动播放失败，切换到图片模式:', err);
+                        loadingOverlay.style.display = 'none';
+                        mobileAvatar.style.display = 'block';
+                        mobileAvatar.style.opacity = '1';
+                        mobilePlayHint.style.display = 'block';
+                        mobilePlayHint.style.opacity = '1';
+                    });
+                });
+                
+                video.addEventListener('error', function() {
+                    console.log('移动端视频加载失败，显示备用图片');
                     loadingOverlay.style.display = 'none';
                     mobileAvatar.style.display = 'block';
-                    mobileAvatar.style.opacity = '0';
-                    setTimeout(() => {
-                        mobileAvatar.style.transition = 'opacity 0.8s ease-in-out';
-                        mobileAvatar.style.opacity = '1';
-                    }, 100);
-                }, 800);
-            }, 1500); // 移动端稍微快一点显示
-            
-            // 添加点击播放视频的功能
-            mobileAvatar.addEventListener('click', function() {
-                mobilePlayHint.style.display = 'block';
-                setTimeout(() => {
-                    mobilePlayHint.style.opacity = '1';
-                }, 100);
-            });
-            
-            mobilePlayHint.addEventListener('click', function() {
-                video.style.display = 'block';
-                video.play().then(() => {
-                    mobileAvatar.style.display = 'none';
-                    mobilePlayHint.style.display = 'none';
-                    video.classList.add('loaded');
-                }).catch(err => {
-                    console.log('视频播放失败:', err);
-                    alert('视频播放失败，请检查网络连接');
+                    mobileAvatar.style.opacity = '1';
                 });
-            });
+                
+                // 超时处理
+                setTimeout(() => {
+                    if (video.readyState < 3) {
+                        console.log('移动端视频加载超时，切换到图片');
+                        loadingOverlay.style.display = 'none';
+                        mobileAvatar.style.display = 'block';
+                        mobileAvatar.style.opacity = '1';
+                        mobilePlayHint.style.display = 'block';
+                        mobilePlayHint.style.opacity = '1';
+                    }
+                }, 5000);
+            }
             
         } else {
             // 桌面端正常视频加载
             video.addEventListener('loadeddata', function() {
-                console.log('视频加载成功');
+                console.log('桌面端视频加载成功');
                 setTimeout(() => {
                     loadingOverlay.style.opacity = '0';
                     video.classList.add('loaded');
@@ -968,7 +1042,7 @@ function initVideoLoading() {
             });
             
             video.addEventListener('error', function() {
-                console.log('视频加载失败，显示备用图片');
+                console.log('桌面端视频加载失败，显示备用图片');
                 loadingOverlay.style.display = 'none';
                 mobileAvatar.style.display = 'block';
                 mobileAvatar.style.opacity = '1';
@@ -977,19 +1051,54 @@ function initVideoLoading() {
             // 超时处理
             setTimeout(() => {
                 if (video.readyState < 3) {
-                    console.log('视频加载超时，切换到图片');
+                    console.log('桌面端视频加载超时，切换到图片');
                     loadingOverlay.style.display = 'none';
                     mobileAvatar.style.display = 'block';
                     mobileAvatar.style.opacity = '1';
                 }
-            }, 8000); // 桌面端超时时间稍长
+            }, 8000);
         }
     }
 }
 
 function openChat() {
-    document.getElementById('chatModal').classList.remove('hidden');
-    document.getElementById('chatModal').classList.add('flex');
+    const chatModal = document.getElementById('chatModal');
+    const isAndroidWechatEnv = isAndroidWechat();
+    
+    if (isAndroidWechatEnv) {
+        console.log('检测到安卓微信浏览器，使用兼容性处理');
+        
+        // 在微信中可能需要特殊处理iframe加载
+        const iframe = chatModal.querySelector('iframe');
+        if (iframe) {
+            // 添加额外的微信兼容性参数
+            const originalSrc = iframe.getAttribute('src');
+            if (originalSrc && !originalSrc.includes('wechat=1')) {
+                const separator = originalSrc.includes('?') ? '&' : '?';
+                iframe.setAttribute('src', originalSrc + separator + 'wechat=1&mobile=1');
+            }
+        }
+        
+        // 添加微信浏览器提示
+        setTimeout(() => {
+            const modalContent = chatModal.querySelector('div');
+            if (modalContent && !modalContent.querySelector('.wechat-hint')) {
+                const hint = document.createElement('div');
+                hint.className = 'wechat-hint absolute top-16 left-4 right-4 bg-primary/20 text-primary text-sm p-2 rounded text-center';
+                hint.textContent = '如遇加载问题，请尝试刷新页面或使用其他浏览器';
+                modalContent.appendChild(hint);
+                
+                // 5秒后自动隐藏提示
+                setTimeout(() => {
+                    hint.style.opacity = '0';
+                    setTimeout(() => hint.remove(), 300);
+                }, 5000);
+            }
+        }, 1000);
+    }
+    
+    chatModal.classList.remove('hidden');
+    chatModal.classList.add('flex');
 }
 
 function closeChat(event) {
@@ -998,6 +1107,71 @@ function closeChat(event) {
     }
     document.getElementById('chatModal').classList.add('hidden');
     document.getElementById('chatModal').classList.remove('flex');
+}
+
+// 重新加载iframe
+function retryIframe() {
+    const iframe = document.getElementById('chatIframe');
+    const errorDiv = document.getElementById('iframeError');
+    
+    if (iframe && errorDiv) {
+        errorDiv.classList.add('hidden');
+        iframe.style.display = 'block';
+        
+        // 重新设置src来刷新iframe
+        const originalSrc = iframe.getAttribute('src');
+        iframe.setAttribute('src', 'about:blank');
+        setTimeout(() => {
+            iframe.setAttribute('src', originalSrc);
+        }, 100);
+    }
+}
+
+// 在新标签页打开
+function openInNewTab() {
+    const chatUrl = 'https://udify.app/chatbot/dXOGs4pTdPO0BPmY';
+    window.open(chatUrl, '_blank');
+    closeChat();
+}
+
+// 监听iframe加载状态
+function setupIframeMonitoring() {
+    const iframe = document.getElementById('chatIframe');
+    const errorDiv = document.getElementById('iframeError');
+    
+    if (iframe && errorDiv) {
+        let hasLoaded = false;
+        
+        // 监听iframe加载成功
+        iframe.addEventListener('load', function() {
+            hasLoaded = true;
+            console.log('iframe加载成功');
+        });
+        
+        // 监听iframe加载错误
+        iframe.addEventListener('error', function() {
+            console.log('iframe加载失败');
+            showIframeError();
+        });
+        
+        // 超时检测（8秒后还没加载成功就显示错误页面）
+        setTimeout(() => {
+            if (!hasLoaded) {
+                console.log('iframe加载超时');
+                showIframeError();
+            }
+        }, 8000);
+    }
+}
+
+function showIframeError() {
+    const iframe = document.getElementById('chatIframe');
+    const errorDiv = document.getElementById('iframeError');
+    
+    if (iframe && errorDiv) {
+        iframe.style.display = 'none';
+        errorDiv.classList.remove('hidden');
+    }
 }
 
 // 网络状态检测
@@ -1041,14 +1215,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化视频加载控制
     initVideoLoading();
     
+    // 初始化iframe监听
+    setupIframeMonitoring();
+    
     // 显示使用说明
     console.log(`
 📱 移动端优化说明：
-• 自动检测移动设备，优先显示图片
-• 检测网络状况，慢速网络自动切换图片模式
-• 支持点击图片播放视频（需用户交互）
+• 自动检测移动设备和微信浏览器环境
+• 微信浏览器中支持点击播放视频（需用户交互）
+• 普通移动浏览器尝试自动播放，失败则提供手动播放选项
 • 视频加载失败自动降级到图片显示
-• 大幅提升移动端加载速度
+• 针对安卓微信浏览器的iframe问题提供兼容性处理
+• 大幅提升移动端加载速度和兼容性
     `);
 });
 </script>
