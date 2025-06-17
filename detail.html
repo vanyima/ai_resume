@@ -318,6 +318,49 @@ body {
     padding-top: 0.5rem;
 }
 
+/* 视觉焦点引导 - KPI指标光晕效果 */
+.kpi-highlight {
+    position: relative;
+    display: inline-block;
+}
+
+.kpi-highlight::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+        circle,
+        rgba(0, 245, 255, 0.4) 0%,
+        rgba(0, 245, 255, 0.2) 40%,
+        rgba(0, 245, 255, 0.1) 70%,
+        transparent 100%
+    );
+    border-radius: 50%;
+    animation: kpiGlow 2s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes kpiGlow {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* 简介中的高亮文本 */
+.highlight {
+    color: #00F5FF;
+    font-weight: 600;
+}
+
 /* 修改聊天窗口样式 */
 .chat-dialog {
     position: fixed;
@@ -392,14 +435,16 @@ body {
                       </div>
                   </div>
                   <div class="work-content timeline-content">
-                      <p>工作概述：作为金融线和大模型产品线唯一的产品经理，负责AI模型与产品商业化一系列工作。</p>
-                      <p>荣誉：获得闵行区"2024年度春申金字塔创新青年人才"（全司占比2/120）、公司内部"2023年度客户服务闪光侠"荣誉（全司占比1/160）。</p>
+                      <p>工作概述：作为金融线和大模型产品线唯一的产品经理，负责AI模型设计规划-产品商业化的全生命周期管理。</p>
+                      <p>所获荣誉：获得闵行区"<span class="highlight kpi-highlight">2024年度春申金字塔创新青年人才</span>"（全司占比<span class="highlight kpi-highlight">2/120</span>）、公司内部"<span class="highlight kpi-highlight">2023年度客户服务闪光侠</span>"荣誉（全司占比<span class="highlight kpi-highlight">1/160</span>）。</p>
                       <ul>
-                          <li>AI模型管理：构建模型质量保障SOP，主导20+AI模型从数据采集->标注->训练->评测->上线->迭代全流程管理，带领10人标注团队累计产出数十万张标注数据，优化检测/识别大模型准确率提升7%，推动试卷擦除模型迭代10+版本(市占率曾超50%)；协调项目需求与标注资源调配，确保高质量数据交付, 支撑项目POC及落地实施；</li>
-                          <li>AI产品规划与设计：从0到1主导企业级LLM应用开发平台、智能文档处理系统及C端教育工具的产品设计；从1到N持续优化AI数据标注与训练平台；负责需求分析、用户/竞品调研、原型设计、PRD撰写及上线后数据分析；</li>
-                          <li>Al云市场运营：负责AI模型API以商品形式进行销售与管理、客情维护；共上线20+款API服务，覆盖 AI生图/AI生文/OCR/图像文档处理类，3年服务250+家企业，沉淀2000万张用户数据；年销售额由0突破至300+万元；</li>
-                          <li>打造流量产品：0-1打造C端"小天试卷星(小程序)"，注册用户300万+，DAU峰值8万，营收超百万；B端"试卷去手写(API)"曾与百度建立合作，后日均调用量保持10W+；</li>
-                          <li>售前支持和项目落地：参与多个企业级POC，覆盖金融/教育/酒店/报关/医疗等行业，负责售前交流、方案制定、demo搭建、效果评测，高效推进售前环节；对实施项目做过程管理，控制范围/进度/成本，完成2个项目交付。</li>
+                          <li>AI模型全流程管理：0-1构建模型质量保障SOP，主导<span class="highlight kpi-highlight">20+</span>AI模型从数据采集->标注->训练->评测->上线->迭代全流程管理；协调标注与算法团队产出<span class="highlight kpi-highlight">30+</span>份标注操作手册、模型评测报告。</li>
+                          <li>AI模型产品运营：策划AI模型训练/评测/API管理； 共上线<span class="highlight kpi-highlight">20+</span>款API服务，覆盖 AI生图/AI生文/OCR/图像文档处理类，3年服务<span class="highlight kpi-highlight">250+</span>家企业，沉淀<span class="highlight kpi-highlight">2000万</span>张用户数据；年销售额由0突破至<span class="highlight kpi-highlight">300+万</span>元；B端"试卷去手写(API)"曾与百度建立合作，后日均调用量保持<span class="highlight kpi-highlight">10W+</span>；基于API调用监控与客户反馈数据，主导优化4个核心模型（擦除模型可用率提升<span class="highlight kpi-highlight">15%</span>，2022年市占率超<span class="highlight kpi-highlight">50%</span>），并设计分级告警机制保障SLA达<span class="highlight kpi-highlight">99.9%</span>。</li>
+                          <li>AI产品设计和优化：独立负责AI产品需求分析、用户/竞品调研、原型设计、PRD撰写、数据分析和产品迭代。</li>
+                          <li>B端产品设计：0-1主导设计和上线企业级B端大模型产品：LLM应用开发平台和AI智能文档处理系统（详见项目经历）等；1-N主导AI数据标注平台、AI模型训练平台。</li>
+                          <li>C端产品设计：0-1打造C端"小天试卷星(小程序)"，注册用户<span class="highlight kpi-highlight">300万+</span>，DAU峰值<span class="highlight kpi-highlight">8万</span>，营收超<span class="highlight kpi-highlight">百万</span>。</li>
+                          <li>AI数据平台迭代：主导AI数据标注与模型训练平台完成<span class="highlight kpi-highlight">2个</span>大版本的迭代。</li>
+                          <li>企业AI解决方案和项目交付：参与多个企业级POC，覆盖金融/教育/酒店/报关/医疗等行业，负责售前交流、方案制定、demo搭建、效果评测，高效推进售前环节；作为项目经理推进<span class="highlight kpi-highlight">2个</span>企业项目交付(教育/海关行业)。</li>
                       </ul>
                   </div>
               </div>
@@ -421,12 +466,12 @@ body {
                           <p class="timeline-title">产品经理</p>
                       </div>
                   </div>
-                  <div class="timeline-date text-sm mb-4">岗位变迁：2年后端开发 → 1年产品经理</div>
+                  <div class="timeline-date text-sm mb-4">岗位变迁：<span class="highlight kpi-highlight">2年</span>后端开发 → <span class="highlight kpi-highlight">1年</span>产品经理</div>
                   <div class="work-content timeline-content">
                       <p>工作概述：主责公司内部工具类产品：APP、小程序等的产品管理，配合研发推进产品升级迭代。</p>
                       <ul>
-                          <li>需求分析：分析出当前游戏模式仅1种、过度依赖用户在后台做大量逻辑配置操作、信息不直观等导致用户培训时间长、难度大，导致用户转化周期长、活跃度不高等痛点；</li>
-                          <li>产品创新：0-1打造2款线上线下虚实结合的PVP创新游戏产品（小程序、APP），结合LBS与低功耗蓝牙硬件(IBeacon)技术，创极简的配置且有高可玩性，促进订单量年同比增长60%。将"传统表单填写"改造为"拖拉拽"式可视化交互控制台，促进实景游戏线路数量年同比增长300%；</li>
+                          <li>需求分析：分析出当前游戏模式仅<span class="highlight kpi-highlight">1种</span>、过度依赖用户在后台做大量逻辑配置操作、信息不直观等导致用户培训时间长、难度大，导致用户转化周期长、活跃度不高等痛点；</li>
+                          <li>产品打造和创新设计：0-1打造<span class="highlight kpi-highlight">2款</span>线上线下虚实结合的PVP创新游戏产品，促进订单量年同比增长<span class="highlight kpi-highlight">60%</span>；将"传统表单填写"改造为"拖拉拽"式可视化交互控制台，促进实景游戏线路数量年同比增长<span class="highlight kpi-highlight">300%</span>；</li>
                           <li>产品研发：主导核心业务功能开发、关键业务模块重构、后端压力测试系统开发，系统成功应对高并发场景。</li>
                       </ul>
                   </div>
@@ -450,7 +495,7 @@ body {
                       </div>
                   </div>
                   <div class="work-content timeline-content">
-                      <p>工作概述：参与完成公司自研产品"跨境电商平台"的10个+后端功能开发（购物车、下单支付、促销计算、UGC、PGC发布等），对接快递100、银联支付、微信支付等多个第三方API。</p>
+                      <p>工作概述：参与完成公司自研产品"跨境电商平台"的<span class="highlight kpi-highlight">10个+</span>后端功能开发（购物车、下单支付、促销计算、UGC、PGC发布等），对接快递100、银联支付、微信支付等多个第三方API。</p>
                   </div>
               </div>
           </div>
@@ -660,6 +705,23 @@ body {
     </div>
 
     <div id="portfolio" class="content-section">
+      <!-- 作者心声 -->
+      <div class="mb-8 p-6 bg-black/30 rounded-lg border border-primary/20">
+        <div class="flex items-start space-x-4">
+          <div class="text-primary text-3xl mt-1 flex-shrink-0">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <div class="text-white/80 leading-relaxed" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;">
+            <p class="italic text-base">
+              和我的AI队友一起捣鼓出了我的AI简历和其他几个小项目；<br>
+              虽然还不够精致，但在反复调试中慢慢进步着。<br>
+              团队里有AI设计师MasterGo、即梦，AI工程师Cursor，还有AI助理Dify和Coze；<br>
+              以及一群强力智囊团：持续输出的Claude、DeepSeek、Gemini、豆包、文心一言。
+            </p>
+          </div>
+        </div>
+      </div>
+      
       <!-- 作品展示区域 -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- 作品1：用户评价工作流-->
