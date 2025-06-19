@@ -1075,7 +1075,7 @@ class ImageCacheManager {
     }
 }
 
-// 🚀 iframe预加载管理器
+// 🚀 简化版iframe预加载管理器
 class IframePreloader {
     constructor() {
         this.chatUrl = 'https://udify.app/chatbot/dXOGs4pTdPO0BPmY';
@@ -1091,10 +1091,10 @@ class IframePreloader {
         this.hiddenIframe = document.getElementById('hiddenChatIframe');
         this.mainIframe = document.getElementById('chatIframe');
         
-        // 🚀 立即开始预加载iframe，提升用户体验
+        // 简单的预加载，页面加载后1秒开始
         setTimeout(() => {
             this.startPreload();
-        }, 100);
+        }, 1000);
     }
 
     async startPreload() {
@@ -1131,33 +1131,16 @@ class IframePreloader {
 
     // 快速显示iframe
     showIframe(callback) {
-        const loadingStatus = document.getElementById('iframeLoadingStatus');
-        
         if (this.isPreloaded) {
             console.log('🚀 使用预加载的iframe');
             // 直接使用预加载的iframe
             this.mainIframe.src = this.chatUrl;
             if (callback) callback();
         } else {
-            console.log('⏳ iframe正在预加载中...');
-            // 显示加载状态
-            if (loadingStatus) loadingStatus.classList.remove('hidden');
-            
-            if (this.isPreloading) {
-                // 正在预加载，等待完成
-                this.loadCallbacks.push(() => {
-                    this.mainIframe.src = this.chatUrl;
-                    if (loadingStatus) loadingStatus.classList.add('hidden');
-                    if (callback) callback();
-                });
-            } else {
-                // 还没开始预加载，立即开始
-                this.mainIframe.src = this.chatUrl;
-                this.mainIframe.addEventListener('load', () => {
-                    if (loadingStatus) loadingStatus.classList.add('hidden');
-                    if (callback) callback();
-                });
-            }
+            console.log('⏳ 直接加载iframe...');
+            // 直接加载到主iframe
+            this.mainIframe.src = this.chatUrl;
+            if (callback) callback();
         }
     }
 
@@ -1281,12 +1264,11 @@ function initVideoLoading() {
 
 function openChat() {
     const chatModal = document.getElementById('chatModal');
+    const iframe = document.getElementById('chatIframe');
     
-    // 🚀 使用预加载的iframe
-    if (window.iframePreloader) {
-        window.iframePreloader.showIframe(() => {
-            console.log('iframe已准备就绪');
-        });
+    // 简单直接的iframe加载
+    if (iframe) {
+        iframe.src = 'https://udify.app/chatbot/dXOGs4pTdPO0BPmY';
     }
     
     if (chatModal) {
@@ -1315,20 +1297,12 @@ function retryIframe() {
         errorDiv.classList.add('hidden');
         iframe.style.display = 'block';
         
-        // 🚀 使用预加载系统重新加载
-        if (window.iframePreloader) {
-            window.iframePreloader.forceReload();
-            setTimeout(() => {
-                window.iframePreloader.showIframe();
-            }, 1000);
-        } else {
-            // 降级方案：传统重新加载
-            const chatUrl = 'https://udify.app/chatbot/dXOGs4pTdPO0BPmY';
-            iframe.setAttribute('src', 'about:blank');
-            setTimeout(() => {
-                iframe.setAttribute('src', chatUrl);
-            }, 100);
-        }
+        // 简单重新加载
+        const chatUrl = 'https://udify.app/chatbot/dXOGs4pTdPO0BPmY';
+        iframe.setAttribute('src', 'about:blank');
+        setTimeout(() => {
+            iframe.setAttribute('src', chatUrl);
+        }, 100);
     }
 }
 
