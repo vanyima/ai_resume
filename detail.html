@@ -713,9 +713,9 @@ body {
           </div>
           <div class="text-white/80 leading-relaxed" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;">
             <p class="italic text-base">
-              和我的AI队友一起捣鼓出了我的AI简历和其他几个小项目；<br>
+              和我的AI队友一起捣鼓出了我的AI简历和小项目；<br>
               虽然还不够精致，但在反复调试中慢慢进步着。<br>
-              团队里有AI设计师MasterGo、即梦，AI工程师Cursor，还有AI助理Dify和Coze；<br>
+              团队里有AI设计师MasterGo、Veo3，AI工程师Cursor，还有AI助理Dify和Coze；<br>
               以及一群强力智囊团：持续输出的Claude、DeepSeek、Gemini、豆包、文心一言。
             </p>
           </div>
@@ -724,7 +724,24 @@ body {
       
       <!-- 作品展示区域 -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- 作品1：用户评价工作流-->
+        <!-- 作品1：三体II·黑暗森林-->
+        <div class="bg-black/50 rounded-lg border border-primary/30 overflow-hidden hover:border-primary transition-all duration-300 cyber-button group cursor-pointer flex flex-col" onclick="openPortfolioLink('https://www.bilibili.com/video/BV1FBKgzfE5P/?pop_share=1&vd_source=6b467e58ac887a0ab898546bab3b59a6')">
+            <div class="relative overflow-hidden">
+                <img src="3body.PNG" alt="三体II·黑暗森林——末日之战" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-xl font-bold mb-3 text-primary group-hover:text-[#00FF41] transition-colors">三体II·黑暗森林——末日之战</h3>
+                <p class="text-gray-300 leading-relaxed text-sm mb-4 flex-1">"毁灭你，与你有和相干？"一颗优雅的"水滴"，划过木星轨道冰冷的虚空。那是人类引以为傲的太阳系舰队，在绝对法则的审判下，绽放为刹那的星尘残骸。</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 text-white text-sm rounded-full border border-pink-400/50" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.4), rgba(255, 255, 255, 0.2));">Veo3</span>
+                    <span class="px-3 py-1 text-white text-sm rounded-full border border-primary/50" style="background: linear-gradient(135deg, rgba(0, 245, 255, 0.3), rgba(255, 255, 255, 0.2));">DeepSeek</span>
+                    <span class="px-3 py-1 text-white text-sm rounded-full border border-purple-300/50" style="background: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(255, 255, 255, 0.2));">三体迷必看</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 作品2：用户评价工作流-->
         <div class="bg-black/50 rounded-lg border border-primary/30 overflow-hidden hover:border-primary transition-all duration-300 cyber-button group cursor-pointer flex flex-col" onclick="openPortfolioLink('https://udify.app/workflow/zRROWD8aeRrYbOsz')">
             <div class="relative overflow-hidden">
                 <img src="user_feedback.svg" alt="用户评价处理工作流" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
@@ -741,7 +758,7 @@ body {
                 </div>
             </div>
         </div>
-          <!-- 作品1：四郎教你学数学 -->
+          <!-- 作品3：四郎教你学数学 -->
           <div class="bg-black/50 rounded-lg border border-primary/30 overflow-hidden hover:border-primary transition-all duration-300 cyber-button group cursor-pointer flex flex-col" onclick="openPortfolioLink('https://www.coze.cn/s/JA9euTYtYLU/')">
               <div class="relative overflow-hidden">
                   <img src="silang.JPG" alt="四郎教你学数学" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
@@ -758,7 +775,7 @@ body {
               </div>
           </div>
           
-          <!-- 作品2：水果消消乐 -->
+          <!-- 作品4：水果消消乐 -->
           <div class="bg-black/50 rounded-lg border border-primary/30 overflow-hidden hover:border-primary transition-all duration-300 cyber-button group cursor-pointer flex flex-col" onclick="openPortfolioVideo('game.mp4')">
               <div class="relative overflow-hidden">
                   <img src="game.JPG" alt="水果消消乐" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
@@ -854,11 +871,20 @@ function openPortfolioLink(url) {
 // 作品集视频播放函数
 function openPortfolioVideo(videoPath) {
     const videoWindow = window.open('', '_blank');
+    
+    // 根据视频路径确定标题
+    let videoTitle = '视频播放';
+    if (videoPath.includes('game')) {
+        videoTitle = '水果消消乐';
+    } else if (videoPath.includes('3body')) {
+        videoTitle = '三体II·黑暗森林——末日之战';
+    }
+    
     videoWindow.document.write(`
         <!DOCTYPE html>
         <html>
         <head>
-            <title>水果消消乐</title>
+            <title>${videoTitle}</title>
             <style>
                 body {
                     margin: 0;
@@ -880,12 +906,13 @@ function openPortfolioVideo(videoPath) {
                     color: #00F5FF;
                     text-align: center;
                     margin-bottom: 20px;
+                    font-size: 1.5rem;
                 }
             </style>
         </head>
         <body>
             <div>
-                <h1>水果消消乐</h1>
+                <h1>${videoTitle}</h1>
                 <video controls autoplay>
                     <source src="${videoPath}" type="video/mp4">
                     您的浏览器不支持视频播放。

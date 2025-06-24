@@ -642,6 +642,129 @@ font-weight: normal;
         font-size: 0.9rem;
     }
 }
+
+/* 🎨 作品集特色突出样式 - 最高优先级 */
+.portfolio-featured-card {
+    background: linear-gradient(135deg, 
+        rgba(0, 245, 255, 0.2) 0%, 
+        rgba(148, 0, 211, 0.2) 50%, 
+        rgba(0, 245, 255, 0.2) 100%);
+    border: 2px solid #00F5FF;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    position: relative;
+    overflow: visible;
+    transition: all 0.3s ease;
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 245, 255, 0.3);
+}
+
+.portfolio-featured-card:hover {
+    transform: scale(1.06) translateY(-4px);
+    box-shadow: 0 15px 40px rgba(0, 245, 255, 0.5);
+    background: linear-gradient(135deg, 
+        rgba(0, 245, 255, 0.3) 0%, 
+        rgba(148, 0, 211, 0.3) 50%, 
+        rgba(0, 245, 255, 0.3) 100%);
+    color: white;
+    text-decoration: none;
+}
+
+
+
+.portfolio-spotlight {
+    animation: spotlightPulse 4s ease-in-out infinite;
+}
+
+@keyframes spotlightPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.portfolio-badge {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    color: white;
+    font-size: 0.7rem;
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+    animation: badgePulse 2s ease-in-out infinite;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+/* 🤖 AI对话按钮 - 第二优先级增强样式 */
+.chat-button {
+    background: linear-gradient(135deg, #00F5FF 0%, #9400D3 50%, #00F5FF 100%);
+    background-size: 200% 200%;
+    animation: flowingGradient 3s ease infinite;
+    border: 2px solid rgba(0, 245, 255, 0.5);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 245, 255, 0.25);
+    position: relative;
+    overflow: hidden;
+    transform: scale(1.01);
+}
+
+.chat-button:hover {
+    transform: scale(1.03) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 245, 255, 0.4);
+    border-color: #00F5FF;
+}
+
+.chat-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        transparent 100%);
+    animation: chatButtonGlow 4s ease-in-out infinite;
+}
+
+@keyframes chatButtonGlow {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .portfolio-featured-card {
+        padding: 1.2rem 1.5rem;
+        transform: scale(1.01);
+    }
+    
+    .portfolio-featured-card:hover {
+        transform: scale(1.04) translateY(-2px);
+    }
+    
+    .chat-button {
+        transform: scale(1);
+    }
+    
+    .chat-button:hover {
+        transform: scale(1.02) translateY(-1px);
+    }
+}
 </style>
 <script>
 window.difyChatbotConfig = {
@@ -721,13 +844,13 @@ window.difyChatbotConfig = {
              </div>
              
              <!-- 次级关联线 - 名字下方 -->
-             <div class="secondary-connection-line" style="top: 100%; margin-top: 8px;"></div>
+             <!-- <div class="secondary-connection-line" style="top: 100%; margin-top: 8px;"></div> -->
              <!-- 连接点 -->
-             <div class="connection-dot" style="right: 20%; top: 100%; margin-top: 6px;"></div>
+             <!-- <div class="connection-dot" style="right: 20%; top: 100%; margin-top: 6px;"></div> -->
 </div>
 
                  <!-- 简介 -->
-         <div class="mb-6 intro-text relative">
+         <div class="mb-3 intro-text relative">
              <p class="mb-2">
                  资深AI产品：4年AI产品设计，设计的LLM应用开发平台，斩获行业<span class="highlight kpi-highlight">首个百万</span>大模型订单；主导0-1打造<span class="highlight kpi-highlight">300万</span>用户小程序及多个企业级AI平台；
              </p>
@@ -736,40 +859,45 @@ window.difyChatbotConfig = {
                  AI云服务商业化：累计为<span class="highlight kpi-highlight">250+</span>教育/打印机/互联网等行业客户提供AI云服务，单API日调用量<span class="highlight kpi-highlight">10万+</span>；
              </p>
              <!-- 主连接线 - 简历下方 -->
-             <div class="main-connection-line" style="top: 100%; margin-top: 12px;"></div>
+             <!-- <div class="main-connection-line" style="top: 100%; margin-top: 12px;"></div> -->
              <!-- 连接点 -->
-             <div class="connection-dot" style="left: 25%; top: 100%; margin-top: 10px;"></div>
+             <!-- <div class="connection-dot" style="left: 25%; top: 100%; margin-top: 10px;"></div> -->
 </div>
-<br>
 
-        <!-- 渐变分割线 -->
-        <!-- <div class="gradient-divider"></div> -->
+        <!-- 🎯 第1优先级：特色作品集 -->
+        <div class="portfolio-spotlight mb-6 relative">
+            <a href="detail.html?section=portfolio" class="portfolio-featured-card">
+                <div class="portfolio-badge">HOT</div>
+                <i class="fas fa-palette mr-4 text-2xl text-primary"></i>
+                <div class="flex-1">
+                    <span class="text-xl font-bold text-primary">✨ 我的作品集</span>
+                    <p class="text-sm text-gray-300 mt-1">AIGC版《三体》、用户评价工作流、“特色”数学老师、微信小游戏​...</p>
+                </div>
+                <i class="fas fa-arrow-right ml-auto text-primary text-xl"></i>
+            </a>
+        </div>
 
-        <!-- AI对话按钮 -->
-        <button onclick="openChat()" class="chat-button w-full py-4 px-6 text-white font-semibold text-lg mb-8 flex items-center justify-center">
+        <!-- 🎯 第2优先级：AI对话按钮（增强版） -->
+        <button onclick="openChat()" class="chat-button w-full py-4 px-6 text-white font-semibold text-lg mb-6 flex items-center justify-center relative">
             <i class="fas fa-robot mr-3 text-xl"></i>
-            和我AI对话
+            <span>和我AI对话</span>
         </button>
 
-                 <!-- 功能模块 -->
-         <div class="feature-grid flex flex-col lg:flex-row gap-4 relative">
+        <!-- 🎯 第3优先级：其他功能模块（并列） -->
+        <div class="feature-grid flex flex-col lg:flex-row gap-4 relative">
              <a href="detail.html?section=experience" class="parallelogram-card flex-1">
                  <i class="fas fa-briefcase mr-2 text-primary"></i>
                  <span class="text-white font-semibold">工作经历</span>
-</a>
+             </a>
              <a href="detail.html?section=projects" class="parallelogram-card  flex-1">
                  <i class="fas fa-rocket mr-2 text-primary"></i>
-                 <span class="text-white font-semibold">项目案例</span>
-</a>
-             <a href="detail.html?section=portfolio" class="parallelogram-card  flex-1">
-                 <i class="fas fa-star mr-2 text-primary"></i>
-                 <span class="text-white font-semibold">作品集</span>
-</a>
+                 <span class="text-white font-semibold">项目经历</span>
+             </a>
              <!-- 动态标注线 - 功能下方 -->
              <div class="annotation-line" style="top: 100%; margin-top: 16px;"></div>
              <!-- 连接点 -->
              <div class="connection-dot" style="right: 30%; top: 100%; margin-top: 12px;"></div>
-</div>
+        </div>
 </div>
 </div>
 
