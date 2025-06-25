@@ -77,6 +77,8 @@ background-attachment: fixed;
 position: relative;
 overflow-x: hidden;
 overflow-y: auto;
+margin: 0;
+padding: 0;
 }
 
 body::before {
@@ -288,41 +290,10 @@ font-weight: normal;
     }
 }
 
-/* 视觉焦点引导 - KPI指标光晕效果 */
+/* 视觉焦点引导 - KPI指标高亮效果（已移除动画） */
 .kpi-highlight {
     position: relative;
     display: inline-block;
-}
-
-.kpi-highlight::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(
-        circle,
-        rgba(0, 245, 255, 0.4) 0%,
-        rgba(0, 245, 255, 0.2) 40%,
-        rgba(0, 245, 255, 0.1) 70%,
-        transparent 100%
-    );
-    border-radius: 50%;
-    animation: kpiGlow 2s ease-in-out infinite;
-    z-index: -1;
-}
-
-@keyframes kpiGlow {
-    0%, 100% { 
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.6;
-    }
-    50% { 
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
-    }
 }
 
 /* 线条连接器 - 视觉连接各个模块 */
@@ -808,7 +779,7 @@ window.difyChatbotConfig = {
             </div>
         </div>
         <!-- 视频元素 -->
-        <video autoplay muted loop playsinline id="avatarVideo" poster="avatar.JPG">
+        <video muted loop playsinline id="avatarVideo" poster="avatar.JPG">
             <source src="avatar.mp4" type="video/mp4">
             您的浏览器不支持视频播放。
         </video>
@@ -870,8 +841,8 @@ window.difyChatbotConfig = {
                 <div class="portfolio-badge">HOT</div>
                 <i class="fas fa-palette mr-4 text-2xl text-primary"></i>
                 <div class="flex-1">
-                    <span class="text-xl font-bold text-primary">✨ 我的作品集</span>
-                    <p class="text-sm text-gray-300 mt-1">AIGC版《三体》、用户评价工作流、“特色”数学老师、微信小游戏​...</p>
+                    <span class="text-xl font-bold text-primary">✨ AIGC作品集</span>
+                    <p class="text-sm text-gray-300 mt-1">AI科幻大片《三体》、用户评价工作流、“特色”数学老师、微信小游戏​...</p>
                 </div>
                 <i class="fas fa-arrow-right ml-auto text-primary text-xl"></i>
             </a>
@@ -880,7 +851,7 @@ window.difyChatbotConfig = {
         <!-- 🎯 第2优先级：AI对话按钮（增强版） -->
         <button onclick="openChat()" class="chat-button w-full py-4 px-6 text-white font-semibold text-lg mb-6 flex items-center justify-center relative">
             <i class="fas fa-robot mr-3 text-xl"></i>
-            <span>和我AI对话</span>
+            <span>和我的AI分身对话</span>
         </button>
 
         <!-- 🎯 第3优先级：其他功能模块（并列） -->
@@ -902,23 +873,23 @@ window.difyChatbotConfig = {
 </div>
 
 <!-- 底部信息 -->
-<div class="w-full py-8 border-t border-primary/20 bg-black/20">
-          <div class="max-w-[1200px] mx-auto px-6 text-center">
+<div class="w-full py-4 border-t border-primary/20 bg-black/20">
+    <div class="max-w-[1200px] mx-auto px-6 text-center">
         <div class="text-gray-400 text-sm">
             <p>和我的AI队友一起捣鼓出了我的AI简历和其他几个小项目;<br>虽然还不够精致，但在反复调试中慢慢进步着。<br>团队里有AI设计师MasterGo、即梦，AI工程师Cursor，还有AI助理Dify和Coze;<br>以及一群强力智囊团：持续输出的Claude、DeepSeek、Gemini、豆包、文心一言</p>
-            </div>
-        <div class="mt-4 text-gray-400 text-sm">
+        </div>
+        <div class="mt-2 text-gray-400 text-sm">
             <p>© vanyima 2025</p>
         </div>
     </div>
 </div>
 
 <!-- 🚀 预加载的iframe（隐藏状态） -->
-<div id="preloadIframe" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none;">
+<div id="preloadIframe" style="position: fixed; left: -9999px; top: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -1;">
     <iframe
         id="hiddenChatIframe"
         src=""
-        style="width: 400px; height: 600px"
+        style="width: 1px; height: 1px"
         frameborder="0"
         allow="microphone"
         sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox">
@@ -1339,6 +1310,8 @@ function initVideoLoading() {
                     setTimeout(() => {
                         loadingOverlay.style.opacity = '0';
                         video.classList.add('loaded');
+                        // 手动开始播放视频，避免autoplay导致的自动滚动
+                        video.play().catch(e => console.log('视频播放失败:', e));
                         setTimeout(() => {
                             loadingOverlay.style.display = 'none';
                         }, 300);
@@ -1359,6 +1332,8 @@ function initVideoLoading() {
                     setTimeout(() => {
                         loadingOverlay.style.opacity = '0';
                         video.classList.add('loaded');
+                        // 手动开始播放视频，避免autoplay导致的自动滚动
+                        video.play().catch(e => console.log('视频播放失败:', e));
                         setTimeout(() => {
                             loadingOverlay.style.display = 'none';
                         }, 800);
